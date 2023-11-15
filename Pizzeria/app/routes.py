@@ -1,6 +1,12 @@
+'''
+Este archivo contiene las rutas específicas de la applicación
+Puedo definir las rutas y funciones asociadas a ellas aquí
+'''
 from flask import render_template
-from app import app
+from app import app, director
+from codigoPizza import funciones_main
 
 @app.route('/')
-def index():
-    return render_template('index.html')
+def home():
+    pizza = director.build_pizza() #Le decimos al chef los pasos a seguir para dicha pizza
+    return render_template('index.html', pizza = pizza)

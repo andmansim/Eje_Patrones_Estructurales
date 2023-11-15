@@ -141,7 +141,7 @@ class Director: #Chef
         self._builder = builder
 
     #Construimos el producto según el tipo de pizza que queramos
-    def build_pizza_prueba1(self) -> None:
+    def build_pizza(self) -> None:
         self.builder.tipo_masa()
         self.builder.salsa_base()
         self.builder.ingr_principales()

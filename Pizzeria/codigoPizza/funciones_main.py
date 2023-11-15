@@ -46,7 +46,7 @@ def crear_pizza(usuario, numero):
     director.builder = builder #Le decimos al chef que tipo de pizza queremos
     
     print(f"Pizza {numero} : ")
-    director.build_pizza_prueba1() #Le decimos al chef los pasos a seguir para dicha pizza
+    director.build_pizza() #Le decimos al chef los pasos a seguir para dicha pizza
     builder.pizza.list_parts() #Unimos todo
     a = builder.pizza.get_parts() #Lista con todos los datos de la pizza
     usuario.pedido_actual(a)
