@@ -62,42 +62,42 @@ class ConcreteBuilder1(Builder): #Es un tipo de pizza, donde personaliza los mé
         #self.reset()
         return pizza
 
-    def tipo_masa(self) -> None:
-        masa = input("¿Qué tipo de masa quieres? (Por ejemplo: fina, normal, gruesa): ")
+    def tipo_masa(self, masa) -> None:
+        #masa = input("¿Qué tipo de masa quieres? (Por ejemplo: fina, normal, gruesa): ")
         self._pizza.add(masa)
     
-    def salsa_base(self) -> None:
-        salsa = input("¿Qué salsa quieres? (Por ejemplo: tomate, barbacoa, carbonara): ")
+    def salsa_base(self, salsa) -> None:
+        #salsa = input("¿Qué salsa quieres? (Por ejemplo: tomate, barbacoa, carbonara): ")
         self._pizza.add(salsa)
     
-    def ingr_principales(self) -> None:
+    def ingr_principales(self, ingrediente) -> None:
         while True:
-            ingrediente = input("¿Qué ingrediente quieres? (Si no quieres ninguno pulsa 0 para salir): ")
+            #ingrediente = input("¿Qué ingrediente quieres? (Si no quieres ninguno pulsa 0 para salir): ")
             if ingrediente == "0":
                 break
             else:
                 self._pizza.add(ingrediente)
     
-    def tec_coccion(self) -> None:
-        coccion = input("¿Qué técnica de cocción quieres? (Por ejemplo: horno de leña, horno eléctrico, horno de gas): ")
+    def tec_coccion(self, coccion) -> None:
+        #coccion = input("¿Qué técnica de cocción quieres? (Por ejemplo: horno de leña, horno eléctrico, horno de gas): ")
         self._pizza.add(coccion)
     
-    def presentacion(self) -> None:
-        presentacion = input("¿Cómo quieres que se presente? (Por ejemplo: en caja de cartón, en plato de barro): ")
+    def presentacion(self, presentacion) -> None:
+        #presentacion = input("¿Cómo quieres que se presente? (Por ejemplo: en caja de cartón, en plato de barro): ")
         self._pizza.add(presentacion)
     
-    def maridajes(self) -> None:
+    def maridajes(self, maridaje) -> None:
         while True:
-            maridaje = input("¿Qué maridaje quieres? (Por ejemplo: vino tinto, cerveza, etc.)(Si no quieres ninguno pulsa 0 para salir): ")
+            #maridaje = input("¿Qué maridaje quieres? (Por ejemplo: vino tinto, cerveza, etc.)(Si no quieres ninguno pulsa 0 para salir): ")
             if maridaje == "0":
                 break
             else:
                 self._pizza.add(maridaje)
         
     
-    def extras(self) -> None:
+    def extras(self, extra) -> None:
         while True:
-            extra = input("¿Qué extra quieres? (Por ejemplo: bordes especiales, ingrediente extra, etc.)(Si no quieres ninguno pulsa 0 para salir): ")
+            #extra = input("¿Qué extra quieres? (Por ejemplo: bordes especiales, ingrediente extra, etc.)(Si no quieres ninguno pulsa 0 para salir): ")
             if extra == "0":
                 break
             else:
@@ -141,12 +141,12 @@ class Director: #Chef
         self._builder = builder
 
     #Construimos el producto según el tipo de pizza que queramos
-    def build_pizza(self) -> None:
-        self.builder.tipo_masa()
-        self.builder.salsa_base()
-        self.builder.ingr_principales()
-        self.builder.tec_coccion()
-        self.builder.presentacion()
-        self.builder.maridajes()
-        self.builder.extras()
+    def build_pizza(self, masa, salsa, ingrediente, coccion, presentacion, maridaje, extra) -> None:
+        self.builder.tipo_masa(masa)
+        self.builder.salsa_base(salsa)
+        self.builder.ingr_principales(ingrediente)
+        self.builder.tec_coccion(coccion)
+        self.builder.presentacion(presentacion)
+        self.builder.maridajes(maridaje)
+        self.builder.extras(extra)
         
