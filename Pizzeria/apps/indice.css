@@ -1,11 +1,24 @@
 .elemento-ordena{display: none;} /* quita todos los elementos con esta clase*/
 .elemento-movil{display: none;} 
 @media screen and (max-width: 768px) { /* Muestra los elementos especiales en pantallas pequeñas*/
-    body {
+    body::before { /*Es para que solo afecte al fondo de la app*/
+        content: "";
+        position: fixed;
+        top:0;
+        left:0;
+        width: 100%;
+        height: 100%;
+        opacity: 0.5;
+        z-index: -1; /*pone la imagen en la capa -1*/
         font-size: 16px;
+        background-image: url(https://static.eldiario.es/clip/02e85aae-e76f-4d1e-8348-52c064632951_16-9-discover-aspect-ratio_default_0.jpg);
+        background-size:cover;
+        background-repeat: no-repeat;
+        background-position: center;
+        
     }
     header {
-        background-color: rgba(42, 130, 130, 0.614);
+        background-color: rgba(25, 231, 118, 0.614);
     }
     .elemento-movil{display: block;}
     #titulo{
