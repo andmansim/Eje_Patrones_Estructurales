@@ -87,7 +87,6 @@ body::before { /*Es para que solo afecte al fondo de la app*/
 header {
     background-color: rgba(25, 231, 118, 0.614);
     float:left;
-    width: 100%;
     font-size: 20px;
     margin-bottom: 10px;
 }
@@ -108,20 +107,17 @@ body nav ul li {
 body nav ul li a {
     text-decoration: none; /* Elimina el subrayado predeterminado de los enlaces */
 }
-#Ps, #C, #CP{
-    font-size: 50px;
-    margin-bottom: 10px;
-    padding: 10px;
-}
-#div1, #div2, #div3{
+
+#div0{
     display: flex;
     align-items: center;
     justify-content: center;
     height:50%;
-    font-size: 50px;
+    
     margin-bottom: 10px;
     margin-right: 10px;
     padding: 10px;
     background-color: rgba(42, 130, 130, 0.614);
     border-radius: 10px;
+
 }
