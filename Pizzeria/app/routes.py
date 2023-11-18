@@ -10,6 +10,7 @@ from codigoPizza import funciones_main
 def home():
     return render_template('index.html')
 
+
 def pizzapersonalizada():
     pizza = director.build_pizza() #Le decimos al chef los pasos a seguir para dicha pizza
     return render_template('Pizzassueltas.html', pizza = pizza)

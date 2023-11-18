@@ -13,8 +13,23 @@
     <body>
         <h2>Crea tu propia pizza</h2>
         <p>Introduzca los detalles de su pizza</p>
-        <form method="post" action="{{ url_for()}}">
-            
+        <form method="post" action="{{ url_for(procesar_pizza)}}">
+            <label for="masa">Masa:</label>
+            <input type="text" id="masa" name="masa" placeholder="Masa" required>
+
+            <label for="salsa">Salsa:</label>
+            <input type="text" id="salsa" name="salsa" placeholder="Salsa" required>
+
+            <label for="ingredientes">Ingredientes:</label>
+            <input type="text" id="ingredientes" name="ingredientes" placeholder="Ingredientes" required>
+
+            <label for="bebida">Bebida:</label>
+            <input type="text" id="bebida" name="bebida" placeholder="Bebida" required>
+
+            <label for="postre">Postre:</label>
+            <input type="text" id="postre" name="postre" placeholder="Postre" required>
+
+
          
     </body>
 </html>
