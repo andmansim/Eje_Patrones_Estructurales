@@ -14,30 +14,37 @@
         <h2>Crea tu propia pizza</h2>
         <p>Introduzca los detalles de su pizza</p>
         <form method="post" action="{{ url_for(procesar_pizza)}}">
-            <label for="masa">Masa:</label>
-            <input type="text" id="masa" name="masa" placeholder="Masa" required>
+            <ul>
+                <li><label for="masa">¿Qué tipo de masa quiere? (Por ejemplo: fina, normal, gruesa):</label> 
+                <input type="text" id="masa" name="masa" placeholder="Masa" required><br> </li>
 
-            <label for="salsa">Salsa:</label>
-            <input type="text" id="salsa" name="salsa" placeholder="Salsa" required>
+                <li><label for="salsa">¿Qué salsa quiere? (Por ejemplo: tomate, barbacoa, carbonara):</label> 
+                <input type="text" id="salsa" name="salsa" placeholder="Salsa" required> <br></li>
 
-            <label for="ingredientes">Ingredientes:</label>
-            <input type="text" id="ingredientes" name="ingredientes" placeholder="Ingredientes" required>
+                <li><label for="ingredientes">¿Qué ingrediente quiere? (Si no quieres ninguno introduzca un 0):</label>
+                <input type="text" id="ingredientes" name="ingredientes" placeholder="Ingredientes" required> <br></li>
 
-            <label for = 'coccion'>Cocción:</label>
-            <input type="text" id="coccion" name="coccion" placeholder="Cocción" required>
+                <li><label for = 'coccion'>¿Qué técnica de cocción quiere? (Por ejemplo: horno de leña, horno eléctrico, horno de gas):</label>
+                <input type="text" id="coccion" name="coccion" placeholder="Cocción" required> <br></li>
 
-            <label for="presentacion">Presentación:</label>
-            <input type="text" id="presentacion" name="presentacion" placeholder="Presentación" required>
+                <li><label for="presentacion">¿Cómo quiere que se presente? (Por ejemplo: en caja de cartón, en plato de barro):</label>
+                <input type="text" id="presentacion" name="presentacion" placeholder="Presentación" required><br></li>
 
-            <label for="bebida">Bebida:</label>
-            <input type="text" id="bebida" name="bebida" placeholder="Bebida" required>
+                <li><label for="bebida">¿Qué maridaje quiere? (Por ejemplo: agua, vino tinto, cerveza, etc.)(Si no quieres ninguno pulsa 0 para salir):</label>
+                <input type="text" id="bebida" name="bebida" placeholder="Bebida" required><br></li>
 
-            <label for="postre">Postre:</label>
-            <input type="text" id="postre" name="postre" placeholder="Postre" required>
-
+                <li><label for="postre">¿Qué postre quiere?(Por ejemplo: yogurt, helado, café, etc.):</label>
+                <input type="text" id="postre" name="postre" placeholder="Postre" required><br></li>
+            </ul>
             <input type="submit" value="Enviar">  
         </form>
-
+        <div id="div4">
+            <h2 id="titulo1">¿Quienes somos?</h1>
+            <p id="parrafo1">Somos una pizzeria que se dedica a la venta de pizzas, con el fin de satisfacer a nuestros clientes, ofreciendo un servicio de calidad y con un buen sabor.</p>
+            <footer>
+                <p>¿Tienes alguna pregunta? Llame al 999 999 999 </p>
+            </footer>
+        </div>
          
     </body>
 </html>
