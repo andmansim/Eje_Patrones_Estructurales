@@ -1,0 +1,79 @@
+.elemento-ordena{display: none;} /* quita todos los elementos con esta clase*/
+.elemento-movil{display: none;} 
+@media screen and (max-width: 768px) { /* Muestra los elementos especiales en pantallas pequeñas*/
+    body {
+        font-size: 16px;
+    }
+    header {
+        background-color: rgba(42, 130, 130, 0.614);
+    }
+    .elemento-movil{display: block;}
+    #titulo{
+        padding: 10px;
+        background-color: rgba(42, 130, 130, 0.614);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 40px;
+        margin-bottom: 10px;
+    }
+}
+
+@media screen and (min-width: 769px) { /* Muestra los elementos especiales en pantallas grandes */
+    body {
+        font-size: 18px;
+    }
+    header {
+        background-color: rgba(42, 130, 130, 0.614);
+        float:left;
+        width: 100%;
+        font-size: 20px;
+    }
+    .elemento-ordena{display: block;} /* Mostrar elementos comunes */
+    #titulo0{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 50px;
+        margin-bottom: 10px;
+        padding: 10px;
+    
+    }
+    
+    body nav ul {
+        list-style: none; /* Elimina los marcadores de lista */
+        padding: 0; /* Elimina el relleno predeterminado de la lista */
+        display:flex;
+        align-items: center;
+        justify-content: center;
+    }
+    
+    body nav ul li {
+        display: inline-block; /* Muestra los elementos de la lista en línea en la misma fila */
+        margin-right: 20px; /* Añade espacio entre los elementos de la lista */
+        padding: 10px;
+    }
+    
+    body nav ul li a {
+        text-decoration: none; /* Elimina el subrayado predeterminado de los enlaces */
+    }
+    
+}
+
+
+#Ps, #C, #CP{
+    font-size: 50px;
+    margin-bottom: 10px;
+    padding: 10px;
+}
+#div1, #div2, #div3{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height:50%;
+    font-size: 50px;
+    margin-bottom: 10px;
+    padding: 10px;
+    background-color: rgba(42, 130, 130, 0.614);
+    border-radius: 10px;
+}
