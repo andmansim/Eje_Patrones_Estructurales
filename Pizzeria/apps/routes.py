@@ -3,7 +3,7 @@ Este archivo contiene las rutas específicas de la applicación
 Puedo definir las rutas y funciones asociadas a ellas aquí
 '''
 from flask import render_template, request, redirect, url_for
-from app import app, director
+from apps import app
 from codigoPizza import builders
 
 @app.route('/')
@@ -11,11 +11,11 @@ def home():
     return render_template('index.html')
 
 
-def pizzapersonalizada():
+'''def pizzapersonalizada():
     pizza = director.build_pizza() #Le decimos al chef los pasos a seguir para dicha pizza
     return render_template('Pizzassueltas.html', pizza = pizza)
-
-@app.route('/procesar_pizza', methods=['POST']) #rcibimos los datos en el fichero procesar_pizza
+'''
+@app.route('/procesar_pizza', methods=['POST']) #recibimos los datos en el fichero procesar_pizza
 def procesar_pizza():
     masa = request.form['masa']
     salsa = request.form['salsa']
@@ -32,4 +32,5 @@ def procesar_pizza():
     director.build_pizza(masa, salsa, ingredientes, coccion, presentacion, bebida, postre) #Le decimos al chef los pasos a seguir para dicha pizza
     builder.pizza.list_parts()
     a = builder.pizza.get_parts() #Lista con todos los datos de la pizza
-    return redirect(url_for('index.html')) #redirigimos a la página principal
+    print(a)
+    return redirect(url_for('home')) #redirigimos a la página principal

@@ -1,6 +1,7 @@
 from flask import Flask
-from app import routes
+from apps import routes
 from codigoPizza import builders
+
 app = Flask(__name__)
 
 
