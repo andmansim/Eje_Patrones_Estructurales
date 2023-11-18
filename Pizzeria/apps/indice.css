@@ -33,11 +33,24 @@
 }
 
 @media screen and (min-width: 769px) { /* Muestra los elementos especiales en pantallas grandes */
-    body {
-        font-size: 18px;
+    body::before { /*Es para que solo afecte al fondo de la app*/
+        content: "";
+        position: fixed;
+        top:0;
+        left:0;
+        width: 100%;
+        height: 100%;
+        opacity: 0.5;
+        z-index: -1; /*pone la imagen en la capa -1*/
+        font-size: 16px;
+        background-image: url(https://static.eldiario.es/clip/02e85aae-e76f-4d1e-8348-52c064632951_16-9-discover-aspect-ratio_default_0.jpg);
+        background-size:cover;
+        background-repeat: no-repeat;
+        background-position: center;
+        
     }
     header {
-        background-color: rgba(42, 130, 130, 0.614);
+        background-color: rgba(25, 231, 118, 0.614);
         float:left;
         width: 100%;
         font-size: 20px;
@@ -52,28 +65,49 @@
         padding: 10px;
     
     }
-    
-    body nav ul {
-        list-style: none; /* Elimina los marcadores de lista */
-        padding: 0; /* Elimina el relleno predeterminado de la lista */
-        display:flex;
-        align-items: center;
-        justify-content: center;
-    }
-    
-    body nav ul li {
-        display: inline-block; /* Muestra los elementos de la lista en línea en la misma fila */
-        margin-right: 20px; /* Añade espacio entre los elementos de la lista */
-        padding: 10px;
-    }
-    
-    body nav ul li a {
-        text-decoration: none; /* Elimina el subrayado predeterminado de los enlaces */
-    }
-    
+  
 }
 
+body::before { /*Es para que solo afecte al fondo de la app*/
+    content: "";
+    position: fixed;
+    top:0;
+    left:0;
+    width: 100%;
+    height: 100%;
+    opacity: 0.5;
+    z-index: -1; /*pone la imagen en la capa -1*/
+    font-size: 16px;
+    background-image: url(https://static.eldiario.es/clip/02e85aae-e76f-4d1e-8348-52c064632951_16-9-discover-aspect-ratio_default_0.jpg);
+    background-size:cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    
+}
+header {
+    background-color: rgba(25, 231, 118, 0.614);
+    float:left;
+    width: 100%;
+    font-size: 20px;
+    margin-bottom: 10px;
+}
+body nav ul {
+    list-style: none; /* Elimina los marcadores de lista */
+    padding: 0; /* Elimina el relleno predeterminado de la lista */
+    display:flex;
+    align-items: center;
+    justify-content: center;
+}
 
+body nav ul li {
+    display: inline-block; /* Muestra los elementos de la lista en línea en la misma fila */
+    margin-right: 20px; /* Añade espacio entre los elementos de la lista */
+    padding: 10px;
+}
+
+body nav ul li a {
+    text-decoration: none; /* Elimina el subrayado predeterminado de los enlaces */
+}
 #Ps, #C, #CP{
     font-size: 50px;
     margin-bottom: 10px;
@@ -86,6 +120,7 @@
     height:50%;
     font-size: 50px;
     margin-bottom: 10px;
+    margin-right: 10px;
     padding: 10px;
     background-color: rgba(42, 130, 130, 0.614);
     border-radius: 10px;
