@@ -1,67 +1,31 @@
-.elemento-ordena{display: none;} /* quita todos los elementos con esta clase*/
-.elemento-movil{display: none;} 
-@media screen and (max-width: 768px) { /* Muestra los elementos especiales en pantallas pequeñas*/
-    body::before { /*Es para que solo afecte al fondo de la app*/
-        content: "";
-        position: fixed;
-        top:0;
-        left:0;
-        width: 100%;
-        height: 100%;
-        opacity: 0.5;
-        z-index: -1; /*pone la imagen en la capa -1*/
-        font-size: 16px;
-        background-image: url(https://static.eldiario.es/clip/02e85aae-e76f-4d1e-8348-52c064632951_16-9-discover-aspect-ratio_default_0.jpg);
-        background-size:cover;
-        background-repeat: no-repeat;
-        background-position: center;
-        
-    }
 
-    .elemento-movil{display: block;}
-    #titulo{
-        padding: 10px;
-        background-color: rgba(25, 231, 118, 0.614);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 40px;
-        margin-bottom: 10px;
-    }
-}
-
-@media screen and (min-width: 769px) { /* Muestra los elementos especiales en pantallas grandes */
-    body::before { /*Es para que solo afecte al fondo de la app*/
-        content: "";
-        position: fixed;
-        top:0;
-        left:0;
-        width: 100%;
-        height: 100%;
-        opacity: 0.5;
-        z-index: -1; /*pone la imagen en la capa -1*/
-        font-size: 16px;
-        background-image: url(https://static.eldiario.es/clip/02e85aae-e76f-4d1e-8348-52c064632951_16-9-discover-aspect-ratio_default_0.jpg);
-        background-size:cover;
-        background-repeat: no-repeat;
-        background-position: center;
-        
-    }
+body::before { /*Es para que solo afecte al fondo de la app*/
+    content: "";
+    position: fixed;
+    top:0;
+    left:0;
+    width: 100%;
+    height: 100%;
+    opacity: 0.5;
+    z-index: -1; /*pone la imagen en la capa -1*/
+    font-size: 16px;
+    background-image: url(https://static.eldiario.es/clip/02e85aae-e76f-4d1e-8348-52c064632951_16-9-discover-aspect-ratio_default_0.jpg);
+    background-size:cover;
+    background-repeat: no-repeat;
+    background-position: center;
     
-    .elemento-ordena{display: block;} /* Mostrar elementos comunes */
-    #titulo0{
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 50px;
-        margin-bottom: 10px;
-        padding: 10px;
-    
-    }
-  
 }
-
-
+header{
+    margin-bottom: 10px;
+    padding: 10px;
+    background-color: rgba(57, 160, 103, 0.614);
+}
+#titulo0{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 40px;
+}
 
 body nav ul {
     list-style: none; /* Elimina los marcadores de lista */
@@ -80,19 +44,13 @@ body nav ul li {
 body nav ul li a {
     text-decoration: none; /* Elimina el subrayado predeterminado de los enlaces */
 }
-header {
-    background-color: rgba(25, 231, 118, 0.614);
-}
+
 #div0{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height:50%;
-    
+
     margin-bottom: 10px;
     margin-right: 10px;
     padding: 10px;
-    background-color: rgba(25, 231, 118, 0.614);
+    background-color: rgba(211, 231, 220, 0.614);
     border-radius: 10px;
-
 }
+
