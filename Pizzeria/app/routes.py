@@ -30,4 +30,6 @@ def procesar_pizza():
     builder = builders.ConcreteBuilder1() #Tipo de pizza
     director.builder = builder #Le decimos al chef que tipo de pizza queremos
     director.build_pizza(masa, salsa, ingredientes, coccion, presentacion, bebida, postre) #Le decimos al chef los pasos a seguir para dicha pizza
-    return redirect(url_for('index')) #redirigimos a la página principal
+    builder.pizza.list_parts()
+    a = builder.pizza.get_parts() #Lista con todos los datos de la pizza
+    return redirect(url_for('index.html')) #redirigimos a la página principal
