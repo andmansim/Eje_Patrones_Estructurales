@@ -50,7 +50,7 @@ def login():
             return redirect('/home')
         else:
             return render_template('login.html')
-    return render_template('login.html')
+    return render_template('index.html')
 
 #registro ususario
 @app.route('/registro', methods=['GET', 'POST'])
