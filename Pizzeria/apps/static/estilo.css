@@ -58,9 +58,15 @@ body nav ul li a {
     font-size: 180%;
 }
 
-fieldset{padding: 10px;
-    background-color: #f0f0f086;}
-
+fieldset{
+    padding: 10px;
+    background-color: #f0f0f086;
+    border-radius: 10px;
+    margin-bottom: 10px;
+}
+legend{
+    font-size: 180%;
+}
 #div4{
     padding: 10px;
     background-color: #f0f0f086; 
