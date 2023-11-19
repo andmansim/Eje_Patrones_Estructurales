@@ -37,12 +37,30 @@ def procesar_pizza():
     builder.pizza.list_parts()
     a = builder.pizza.get_parts() #Lista con todos los datos de la pizza
 
+@app.route('7login', methods=['GET', 'POST'])
+def login():
+    if request.method == 'POST':
+        usuario = request.form.get('username')
+        contrasenia = request.form.get('password')
+        print(usuario, contrasenia)
+        if web_pizza.login(usuario, contrasenia):
+            return redirect('/home')
+        else:
+            return render_template('login.html')
+    return render_template('login.html')
+
 #registro ususario
 @app.route('/registro', methods=['GET', 'POST'])
 def registro():
     if request.method == 'POST':
         usuario = request.form.get('username')
         contrasenia = request.form.get('password')
+        #Debe comprobar la contraseña que sea la misma en los dos campos
+        correo = request.form.get('email')
+        telefono = request.form.get('telefono')
+        direccion = request.form.get('direccion')
+    
+    return render_template('registro.html')
         
 
 
