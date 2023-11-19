@@ -21,7 +21,7 @@ def home():
 def pizzapersonalizada():
     return render_template('Pizzassueltas.html')
 
-@app.route('/form   ', methods=['POST']) #recibimos los datos en el fichero procesar_pizza
+@app.route('/form', methods=['POST']) #recibimos los datos en el fichero procesar_pizza
 def procesar_pizza():
     print(request.get_data()) #imprimimos los datos recibidos
     #recogemos los datos en las dinstintas variables
