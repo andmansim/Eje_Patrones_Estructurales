@@ -21,8 +21,8 @@ def home():
 def pizzapersonalizada():
     return render_template('Pizzassueltas.html')
 
-@app.route('/form', methods=['POST']) #recibimos los datos en el fichero procesar_pizza
-def procesar_pizza():
+@app.route('/pizza_personali', methods=['POST']) #recibimos los datos en el fichero procesar_pizza
+def pizza_personali():
     print(request.get_data()) #imprimimos los datos recibidos
     #recogemos los datos en las dinstintas variables
     masa = request.form.get('masa')
@@ -39,7 +39,8 @@ def procesar_pizza():
     director.build_pizza(masa, salsa, ingredientes, coccion, presentacion, bebida, postre) #Le decimos al chef los pasos a seguir para dicha pizza
     builder.pizza.list_parts()
     a = builder.pizza.get_parts() #Lista con todos los datos de la pizza
-
+    print(a)
+    
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
