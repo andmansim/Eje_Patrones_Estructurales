@@ -2,7 +2,8 @@
 Este archivo se encarga de conectar la web con el código
 '''
 from flask import render_template, request, redirect, Flask
-from codigoPizza import builders, manejardatos
+from codigoPizza import builders
+from codigoPizza import manejardatos
 
 app = Flask(__name__)
 
