@@ -1,6 +1,8 @@
 '''
 Este archivo se encarga de conectar la web con el código
 '''
+import sys
+sys.path.append('C:/Users/andre/Documents/GitHub2/Eje_Patrones_Estructurales/Pizzeria')
 from flask import render_template, request, redirect, Flask
 from codigoPizza import builders
 from codigoPizza import manejardatos
