@@ -38,7 +38,7 @@ def procesar_pizza():
     builder.pizza.list_parts()
     a = builder.pizza.get_parts() #Lista con todos los datos de la pizza
 
-@app.route('7login', methods=['GET', 'POST'])
+@app.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
         usuario = request.form.get('username')
@@ -68,4 +68,3 @@ def registro():
 if __name__ == '__main__':
     app.run(debug=True)
     
-from apps import routes
