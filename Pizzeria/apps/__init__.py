@@ -62,8 +62,9 @@ def registro():
         correo = request.form.get('email')
         telefono = request.form.get('telefono')
         direccion = request.form.get('direccion')
+        print(usuario, contrasenia, correo, telefono, direccion)
     
-    return render_template('registro.html')
+    return render_template('index.html')
         
 
 
