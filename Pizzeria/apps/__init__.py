@@ -13,6 +13,7 @@ director = builders.Director() #Chef
 builder = builders.ConcreteBuilder1() #Tipo de pizza
 web_pizza = manejardatos.WebPizzeria()
 
+#Rutas para las distintas páginas
 @app.route('/home')
 def home():
     return render_template('index.html')
@@ -21,8 +22,17 @@ def home():
 def pizzapersonalizada():
     return render_template('Pizzassueltas.html')
 
-@app.route('/pizza_personali', methods=['POST']) #recibimos los datos en el fichero procesar_pizza
-def pizza_personali():
+@app.route('/combos_general', methods=['GET', 'POST'])
+def combos_general():
+    return render_template('Combos.html')
+
+@app.route('/combos_per', methods=['GET', 'POST'])
+def combos_per():
+    return render_template('CombosPersonalizados.html')
+
+#Ruta para recoger los datos de la pizza personalizada
+@app.route('/datos_pizza_per', methods=['POST']) #recibimos los datos en el fichero procesar_pizza
+def datos_pizza_per():
     print(request.get_data()) #imprimimos los datos recibidos
     #recogemos los datos en las dinstintas variables
     masa = request.form.get('masa')
@@ -40,7 +50,8 @@ def pizza_personali():
     builder.pizza.list_parts()
     a = builder.pizza.get_parts() #Lista con todos los datos de la pizza
     print(a)
-    
+
+#Ruta para coger los datos del login  
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
