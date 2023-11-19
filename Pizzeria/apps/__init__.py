@@ -37,6 +37,12 @@ def procesar_pizza():
     builder.pizza.list_parts()
     a = builder.pizza.get_parts() #Lista con todos los datos de la pizza
 
+#registro ususario
+@app.route('/registro', methods=['GET', 'POST'])
+def registro():
+    pass
+
+
 if __name__ == '__main__':
     app.run(debug=True)
     
