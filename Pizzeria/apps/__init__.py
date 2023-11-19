@@ -40,7 +40,10 @@ def procesar_pizza():
 #registro ususario
 @app.route('/registro', methods=['GET', 'POST'])
 def registro():
-    pass
+    if request.method == 'POST':
+        usuario = request.form.get('username')
+        contrasenia = request.form.get('password')
+        
 
 
 if __name__ == '__main__':
