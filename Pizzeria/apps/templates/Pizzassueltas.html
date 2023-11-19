@@ -14,28 +14,102 @@
         <h2>Crea tu propia pizza</h2>
         <p>Introduzca los detalles de su pizza</p>
         <form method="post" action="/datos_pizza_per">
-            <ul>
-                <li><label for="masa">¿Qué tipo de masa quiere? (Por ejemplo: fina, normal, gruesa):</label> 
-                <input type="text" id="masa" name="masa" placeholder="Masa" required><br> </li>
+            <fieldset>
+                <legend>Masa</legend>
+                <p>¿Qué tipo de masa quiere?</p>
+                <input type="radio" name="masa" value="fina" >Fina<br>
+                <input type="radio" name="masa" value="normal" >Normal<br>
+                <input type="radio" name="masa" value="gruesa" >Gruesa<br>
+            </fieldset>
+            <fieldset>
+                <legend>Salsa</legend>
+                <p>¿Qué salsa quiere?</p>
+                <input type="radio" name="salsa" value="tomate" >Tomate<br>
+                <input type="radio" name="salsa" value="barbacoa" >Barbacoa<br>
+                <input type="radio" name="salsa" value="carbonara" >Carbonara<br>
+            </fieldset>
+            <fieldset>
+                <legend>Ingredientes</legend>
+                <p>¿Qué ingrediente quiere?</p>
+                <input type="checkbox" name="ingredientes_queso" value="queso" >Queso<br>
+                <input type="checkbox" name="ingredientes_jamon" value="jamon" >Jamón<br>
+                <input type="checkbox" name="ingredientes_bacon" value="bacon" >Bacon<br>
+                <input type="checkbox" name="ingredientes_champiñones" value="champiñones" >Champiñones<br>
+                <input type="checkbox" name="ingredientes_pollo" value="pollo" >Pollo<br>
+                <input type="checkbox" name="ingredientes_atun" value="atun" >Atún<br>
+                <input type="checkbox" name="ingredientes_piña" value="piña" >Piña<br>
+                <input type="checkbox" name="ingredientes" value="pimiento" >Pimiento<br>
+                <input type="checkbox" name="ingredientes" value="tomate" >Tomate<br>
+                <input type="checkbox" name="ingredientes" value="cebolla" >Cebolla<br>
+                <input type="checkbox" name="ingredientes" value="aceitunas" >Aceitunas<br>
+                <input type="checkbox" name="ingredientes" value="maiz" >Maíz<br>
+                <input type="checkbox" name="ingredientes" value="carne" >Carne<br>
+                <input type="checkbox" name="ingredientes" value="salchicha" >Salchicha<br>
+                <input type="checkbox" name="ingredientes" value="pepperoni" >Pepperoni<br>
+                <input type="checkbox" name="ingredientes" value="queso_azul" >Queso azul<br>
+                <input type="checkbox" name="ingredientes" value="queso_de_cabra" >Queso de cabra<br>
+                <input type="checkbox" name="ingredientes" value="queso_de_bola" >Queso de bola<br>
+                <input type="checkbox" name="ingredientes" value="queso_de_brie" >Queso de brie<br>
+                <input type="checkbox" name="ingredientes" value="queso_de_cabra" >Queso de cabra<br>
+            </fieldset>
+            <fieldset>
+                <legend>Cocción</legend>
+                <p>¿Qué técnica de cocción quiere?</p>
+                <input type="radio" name="coccion" value="horno_de_leña" >Horno de leña<br>
+                <input type="radio" name="coccion" value="horno_eléctrico" >Horno eléctrico<br>
+                <input type="radio" name="coccion" value="horno_de_gas" >Horno de gas<br>
+            </fieldset>
+            <fieldset>
+                <legend>Presentación</legend>
+                <p>¿Cómo quiere que se presente?</p>
+                <input type="radio" name="presentacion" value="caja_de_cartón" >Caja de cartón<br>
+                <input type="radio" name="presentacion" value="plato_de_barro" >Plato de barro<br>
+            </fieldset>
+            <fieldset>
+                <legend>Bebida</legend>
+                <p>¿Qué maridaje quiere?</p>
+                <input type="radio" name="bebida" value="agua" >Agua<br>
+                <input type="radio" name="bebida" value="vino_tinto" >Vino tinto<br>
+                <input type="radio" name="bebida" value="vino_blanco" >Vino blanco<br>
+                <input type="radio" name="bebida" value="cerveza" >Cerveza<br>
+                <input type="radio" name="bebida" value="refresco" >Refresco<br>
+                <input type="radio" name="bebida" value="zumo" >Zumo<br>
+                <input type="radio" name="bebida" value="leche" >Leche<br>
+                <input type="radio" name="bebida" value="café" >Café<br>
+                <input type="radio" name="bebida" value="infusión" >Infusión<br>
+                <input type="radio" name="bebida" value="licor" >Licor<br>
+                <input type="radio" name="bebida" value="cava" >Cava<br>
+                <input type="radio" name="bebida" value="champán" >Champán<br>
+                <input type="radio" name="bebida" value="sidra" >Sidra<br>
+                <input type="radio" name="bebida" value="cóctel" >Cóctel<br>
+                <input type="radio" name="bebida" value="batido" >Batido<br>
+                <input type="radio" name="bebida" value="smoothie" >Smoothie<br>
+                <input type="radio" name="bebida" value="granizado" >Granizado<br>
+                <input type="radio" name="bebida" value="horchata" >Horchata<br>
+                <input type="radio" name="bebida" value="té" >Té<br>
+                <input type="radio" name="bebida" value="sangría" >Sangría<br>
+            </fieldset>
+            <fieldset>
+                <legend>Postre</legend>
+                <p>¿Qué postre quiere?</p>
+                <input type="radio" name="postre" value="yogurt" >Yogurt<br>
+                <input type="radio" name="postre" value="helado" >Helado<br>
+                <input type="radio" name="postre" value="tarta" >Tarta<br>
+                <input type="radio" name="postre" value="fruta" >Fruta<br>
+                <input type="radio" name="postre" value="chocolate" >Chocolate<br>
+                <input type="radio" name="postre" value="galletas" >Galletas<br>
+                <input type="radio" name="postre" value="pastel" >Pastel<br>
+                <input type="radio" name="postre" value="flan" >Flan<br>
+                <input type="radio" name="postre" value="crema" >Crema<br>
+                <input type="radio" name="postre" value="tarta_de_queso" >Tarta de queso<br>
+                <input type="radio" name="postre" value="tarta_de_chocolate" >Tarta de chocolate<br>
+                <input type="radio" name="postre" value="tarta_de_frutas" >Tarta de frutas<br>
+                <input type="radio" name="postre" value="tarta_de_manzana" >Tarta de manzana<br>
+                <input type="radio" name="postre" value="tarta_de_zanahoria" >Tarta de zanahoria<br>
+                <input type="radio" name="postre" value="tarta_de_calabaza" >Tarta de calabaza<br>
+                <input type="radio" name="postre" value="tarta_de_manzana" >Tarta de manzana<br>
+            </fieldset>
 
-                <li><label for="salsa">¿Qué salsa quiere? (Por ejemplo: tomate, barbacoa, carbonara):</label> 
-                <input type="text" id="salsa" name="salsa" placeholder="Salsa" required> <br></li>
-
-                <li><label for="ingredientes">¿Qué ingrediente quiere? (Si no quieres ninguno introduzca un 0):</label>
-                <input type="text" id="ingredientes" name="ingredientes" placeholder="Ingredientes" required> <br></li>
-
-                <li><label for = 'coccion'>¿Qué técnica de cocción quiere? (Por ejemplo: horno de leña, horno eléctrico, horno de gas):</label>
-                <input type="text" id="coccion" name="coccion" placeholder="Cocción" required> <br></li>
-
-                <li><label for="presentacion">¿Cómo quiere que se presente? (Por ejemplo: en caja de cartón, en plato de barro):</label>
-                <input type="text" id="presentacion" name="presentacion" placeholder="Presentación" required><br></li>
-
-                <li><label for="bebida">¿Qué maridaje quiere? (Por ejemplo: agua, vino tinto, cerveza, etc.)(Si no quieres ninguno pulsa 0 para salir):</label>
-                <input type="text" id="bebida" name="bebida" placeholder="Bebida" required><br></li>
-
-                <li><label for="postre">¿Qué postre quiere?(Por ejemplo: yogurt, helado, café, etc.):</label>
-                <input type="text" id="postre" name="postre" placeholder="Postre" required><br></li>
-            </ul>
             <input type="submit" value="Enviar">  
         </form>
         <div id="div4">
