@@ -3,7 +3,7 @@ Este archivo se encarga de conectar la web con el código
 '''
 import sys
 sys.path.append('C:/Users/andre/Documents/GitHub2/Eje_Patrones_Estructurales/Pizzeria')
-from flask import render_template, request, redirect, Flask, flash
+from flask import render_template, request, redirect, Flask, flash, url_for
 from codigoPizza import builders
 
 from codigoPizza.pedido_pizza import guardar_pedido_en_csv
@@ -110,7 +110,7 @@ def login():
 
         # Comprobar si el usuario y la contraseña coinciden en el archivo CSV de usuarios
         if gest_usuarios.usuario_valido(usuario, contrasenia):
-            return redirect('/home')
+            return redirect(url_for('home'))
     # Si la autenticación falla o si la solicitud es GET, renderiza el formulario de inicio de sesión
     return render_template('login.html')
 
@@ -127,12 +127,12 @@ def registro():
         # Comprobar si el usuario ya existe en el archivo CSV de usuarios
         if not gest_usuarios.usuario_existe(usuario):
 
-            # Registramos al usuario en el archivo CSV de usuarios
-            gest_usuarios.registrar_usuario(usuario, contrasenia, correo, telefono, direccion)
+            # Registra al usuario en el archivo CSV de usuarios
+            gest_usuarios.registrar_usuario( usuario, contrasenia, correo, telefono, direccion)
 
             # Redirigir a la página de inicio después del registro
             return redirect('/home')
-       
+
     return render_template('index.html')
         
 

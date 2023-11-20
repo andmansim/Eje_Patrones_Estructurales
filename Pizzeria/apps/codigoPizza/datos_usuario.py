@@ -6,32 +6,28 @@ class GestorUsuarios:
 
     def usuario_valido(self, usuario, contrasenia):
         with open(self.archivo_usuarios, mode='r') as file:
-            leer = csv.reader(file)
+            leer = csv.DictReader(file)
             for row in leer:
                 if row['usuario'] == usuario and row['contrasenia'] == contrasenia:
                     return True
         return False
 
     def usuario_existe(self, usuario):
-        
         with open(self.archivo_usuarios, mode='r') as file:
-            reader = csv.reader(file)
+            reader = csv.DictReader(file)
             for row in reader:
                 if row['usuario'] == usuario:
                     return True
         return False
 
     def registrar_usuario(self, id_usuario, usuario, contrasenia, correo, telefono, direccion):
-        with open(self.archivo_usuarios, mode='w', newline='') as file:
+        with open(self.archivo_usuarios, mode='a', newline='') as file:
             writer = csv.writer(file)
 
-            # Si es un nuevo archivo, escribe el encabezado
+            # Si el archivo está vacío, escribe el encabezado
             if file.tell() == 0:
                 writer.writerow(["id_usuario", "usuario", "contrasenia", "correo", "telefono", "direccion"])
 
             # Agrega al nuevo usuario
             writer.writerow([id_usuario, usuario, contrasenia, correo, telefono, direccion])
-
-   
-
     
