@@ -17,7 +17,7 @@ director = builders.Director() #Chef
 builder = builders.ConcreteBuilder1() #Tipo de pizza
 web_pizza = manejardatos.WebPizzeria()
 
-#Rutas para las distintas página
+#Rutas para las distintas páginas
 
 @app.route('/home')
 def home():
@@ -48,6 +48,9 @@ def mensaje_procesado():
     mensaje = flash('success')  # Recupera el mensaje almacenado con flash
     return render_template('mensaje_procesado.html', mensaje=mensaje)
 
+
+
+#Rutas para recolectar y manejar datos
 #Ruta para recoger los datos de la pizza personalizada
 @app.route('/datos_pizza_per', methods=['POST']) #recibimos los datos en el fichero procesar_pizza
 def datos_pizza_per():
