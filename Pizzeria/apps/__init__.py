@@ -75,6 +75,12 @@ def datos_pizza_per():
     builder.pizza.list_parts()
     a = builder.pizza.get_parts() #Lista con todos los datos de la pizza
     print(a)
+    mensaje = None
+
+    if request.method == 'POST':
+        mensaje = '¡Mensaje enviado!'
+
+    return render_template('index_python_no_js.html', mensaje=mensaje)
     return render_template('Pizzassueltas.html')
 
 #Ruta para coger los datos del login  
