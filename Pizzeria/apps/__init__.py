@@ -27,6 +27,14 @@ def home():
 def pizzapersonalizada():
     return render_template('Pizzassueltas.html')
 
+@app.route('/inicio_sesion', methods=['GET', 'POST'])
+def inicio_sesion():
+    return render_template('login.html')
+
+@app.route('/registro_usuario', methods=['GET', 'POST'])
+def registro_usuario():
+    return render_template('registro.html')
+
 @app.route('/combos_general', methods=['GET', 'POST'])
 def combos_general():
     return render_template('Combos.html')
