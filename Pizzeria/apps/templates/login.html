@@ -22,6 +22,15 @@
                 <input type="password" id="password" name="password" required> <br>
                 <button type="submit">Iniciar sesión</button>
             </form>
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                    {% for category, message in messages %}
+                        <div class="alert alert-{{ category }}">
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
             <p>¿No tienes cuenta? <a href='/registro_usuario'>Regístrate</a></p>
         </div> <hr>
         
@@ -32,14 +41,6 @@
                     <p>¿Tienes alguna pregunta? Llame al 999 999 999 </p>
                 </footer>
             </div>
-        {% with messages = get_flashed_messages(with_categories=true) %}
-            {% if messages %}
-              {% for category, message in messages %}
-                <div class="alert alert-{{ category }}">
-                  {{ message }}
-                </div>
-              {% endfor %}
-            {% endif %}
-        {% endwith %}
+        
     </body>
 </html>
