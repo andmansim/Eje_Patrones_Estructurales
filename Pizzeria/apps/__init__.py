@@ -127,32 +127,28 @@ def registro():
         correo = request.form.get('email')
         telefono = request.form.get('telefono')
         direccion = request.form.get('direccion')
-        
+
+        # Verificar si el usuario ya existe
         with open("usuarios.csv", mode='r') as file:
-            print("hola")
             leer = csv.reader(file)
             for row in leer:
-                if row['usuario'] == usuario:
-                    pass
-                else:
-                    print("hola2")
-                    with open("usuarios.csv", mode='w', newline='') as file:
-                        writer = csv.writer(file)
-                        # Agrega al nuevo usuario
-                        writer.writerow([usuario, contrasenia, correo, telefono, direccion])
-        '''a = datos_usuario.usuario_existe(usuario)
+                print(f"Comparando {row[0]} con {usuario}")
+                if row and row[0] == usuario:
+                    print("El usuario ya existe")
+                    flash('¡El usuario ya existe!', 'error')
+                    return render_template('registro.html')
+                
+        try:
+            with open("usuarios.csv", mode='a', newline='') as file:
+                writer = csv.writer(file)
+                writer.writerow([usuario, contrasenia, correo, telefono, direccion])
+        except Exception as e:
+            print(f"Error al escribir en el archivo CSV: {e}")
+            flash('¡Error en el registro!', 'error')
+            return render_template('registro.html')
 
-        # Comprobar si el usuario ya existe en el archivo CSV de usuarios
-        if a == False:
+    return render_template('registro.html')
 
-            # Registra al usuario en el archivo CSV de usuarios
-            datos_usuario.registrar_usuario( usuario, contrasenia, correo, telefono, direccion)
-
-            # Redirigir a la página de inicio después del registro
-            return redirect('/home')'''
-
-    return render_template('index.html')
-        
 
 
 if __name__ == '__main__':
