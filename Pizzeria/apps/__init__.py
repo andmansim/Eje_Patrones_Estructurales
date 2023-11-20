@@ -17,7 +17,7 @@ app.secret_key = secrets.token_hex(16)  # Genera una clave secreta hexadecimal d
 
 director = builders.Director() #Chef
 builder = builders.ConcreteBuilder1() #Tipo de pizza
-gest_usuarios = datos_usuario.GestorUsuarios()
+
 #Rutas para las distintas páginas
 
 @app.route('/home')
@@ -109,7 +109,7 @@ def login():
         contrasenia = request.form.get('password')
 
         # Comprobar si el usuario y la contraseña coinciden en el archivo CSV de usuarios
-        if gest_usuarios.usuario_valido(usuario, contrasenia):
+        if datos_usuario.usuario_valido(usuario, contrasenia):
             return redirect(url_for('home'))
     # Si la autenticación falla o si la solicitud es GET, renderiza el formulario de inicio de sesión
     return render_template('login.html')
@@ -125,10 +125,10 @@ def registro():
         direccion = request.form.get('direccion')
 
         # Comprobar si el usuario ya existe en el archivo CSV de usuarios
-        if not gest_usuarios.usuario_existe(usuario):
+        if not datos_usuario.usuario_existe(usuario):
 
             # Registra al usuario en el archivo CSV de usuarios
-            gest_usuarios.registrar_usuario( usuario, contrasenia, correo, telefono, direccion)
+            datos_usuario.registrar_usuario( usuario, contrasenia, correo, telefono, direccion)
 
             # Redirigir a la página de inicio después del registro
             return redirect('/home')
