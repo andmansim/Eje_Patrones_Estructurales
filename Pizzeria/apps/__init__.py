@@ -8,6 +8,7 @@ from codigoPizza import builders
 
 from codigoPizza.pedido_pizza import guardar_pedido_en_csv
 from codigoPizza import datos_usuario
+import csv
 
 import secrets
 
@@ -17,6 +18,10 @@ app.secret_key = secrets.token_hex(16)  # Genera una clave secreta hexadecimal d
 
 director = builders.Director() #Chef
 builder = builders.ConcreteBuilder1() #Tipo de pizza
+
+with open('usuarios.csv', mode='w', newline='') as file:
+    writer= csv.writer(file)
+    writer.writerow(['usuario', 'contrasenia', 'correo', 'telefono', 'direccion'])
 
 #Rutas para las distintas páginas
 
@@ -123,9 +128,21 @@ def registro():
         correo = request.form.get('email')
         telefono = request.form.get('telefono')
         direccion = request.form.get('direccion')
+        with open("usuarios.csv", mode='r') as file:
+        
+            leer = csv.reader(file)
+            for row in leer:
+                if row['usuario'] == usuario:
+                    a = True
+                else:
+                    a = False
+                    with open("usuarios.csv", mode='w', newline='') as file:
+                        writer = csv.writer(file)
+                        # Agrega al nuevo usuario
+                        writer.writerow([usuario, contrasenia, correo, telefono, direccion])
 
         # Comprobar si el usuario ya existe en el archivo CSV de usuarios
-        if not datos_usuario.usuario_existe(usuario):
+        if a == False:
 
             # Registra al usuario en el archivo CSV de usuarios
             datos_usuario.registrar_usuario( usuario, contrasenia, correo, telefono, direccion)

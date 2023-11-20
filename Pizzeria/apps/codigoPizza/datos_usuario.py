@@ -1,7 +1,6 @@
 import csv
 
 
-
 def usuario_valido(usuario, contrasenia):
     try:
         with open("usuarios.csv", mode='r') as file:
@@ -14,24 +13,18 @@ def usuario_valido(usuario, contrasenia):
         pass
 
 def usuario_existe(usuario):
-    try:
-        with open("usuarios.csv", mode='r') as file:
-            leer = csv.reader(file)
-            for row in leer:
-                if row['usuario'] == usuario:
-                    return True
-        return False
-    except FileNotFoundError:
-        pass
-    
+    print("hola")
+    with open("usuarios.csv", mode='r') as file:
+        
+        leer = csv.reader(file)
+        for row in leer:
+            if row['usuario'] == usuario:
+                return True
+    return False
 
-def registrar_usuario(id_usuario, usuario, contrasenia, correo, telefono, direccion):
-    with open("usuarios.csv", mode='a', newline='') as file:
+
+def registrar_usuario(usuario, contrasenia, correo, telefono, direccion):
+    with open("usuarios.csv", mode='w', newline='') as file:
         writer = csv.writer(file)
-
-        # Si el archivo está vacío, escribe el encabezado
-        if file.tell() == 0:
-            writer.writerow(["id_usuario", "usuario", "contrasenia", "correo", "telefono", "direccion"])
-
         # Agrega al nuevo usuario
-        writer.writerow([id_usuario, usuario, contrasenia, correo, telefono, direccion])
+        writer.writerow([usuario, contrasenia, correo, telefono, direccion])
