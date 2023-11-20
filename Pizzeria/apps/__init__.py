@@ -128,18 +128,7 @@ def registro():
         correo = request.form.get('email')
         telefono = request.form.get('telefono')
         direccion = request.form.get('direccion')
-        with open("usuarios.csv", mode='r') as file:
-        
-            leer = csv.reader(file)
-            for row in leer:
-                if row['usuario'] == usuario:
-                    a = True
-                else:
-                    a = False
-                    with open("usuarios.csv", mode='w', newline='') as file:
-                        writer = csv.writer(file)
-                        # Agrega al nuevo usuario
-                        writer.writerow([usuario, contrasenia, correo, telefono, direccion])
+        a = datos_usuario.usuario_existe(usuario)
 
         # Comprobar si el usuario ya existe en el archivo CSV de usuarios
         if a == False:
