@@ -3,25 +3,19 @@ Este archivo se encarga de conectar la web con el código
 '''
 import sys
 sys.path.append('C:/Users/andre/Documents/GitHub2/Eje_Patrones_Estructurales/Pizzeria')
-from flask import render_template, request, redirect, Flask
+from flask import render_template, request, redirect, Flask, flash
 from codigoPizza import builders
 from codigoPizza import manejardatos
+import secrets
 
 app = Flask(__name__)
+app.secret_key = secrets.token_hex(16)  # Genera una clave secreta hexadecimal de 16 bytes
 
 director = builders.Director() #Chef
 builder = builders.ConcreteBuilder1() #Tipo de pizza
 web_pizza = manejardatos.WebPizzeria()
 
-#Rutas para las distintas páginas
-@app.route('/', methods=['GET', 'POST'])
-def index():
-    mensaje = None
-
-    if request.method == 'POST':
-        mensaje = '¡Mensaje enviado!'
-
-    return render_template('index_python_no_js.html', mensaje=mensaje)
+#Rutas para las distintas página
 
 @app.route('/home')
 def home():
@@ -38,6 +32,11 @@ def combos_general():
 @app.route('/combos_per', methods=['GET', 'POST'])
 def combos_per():
     return render_template('CombosPersonalizados.html')
+
+@app.route('/mensaje_procesado')
+def mensaje_procesado():
+    mensaje = flash('success')  # Recupera el mensaje almacenado con flash
+    return render_template('mensaje_procesado.html', mensaje=mensaje)
 
 #Ruta para recoger los datos de la pizza personalizada
 @app.route('/datos_pizza_per', methods=['POST']) #recibimos los datos en el fichero procesar_pizza
@@ -75,13 +74,11 @@ def datos_pizza_per():
     builder.pizza.list_parts()
     a = builder.pizza.get_parts() #Lista con todos los datos de la pizza
     print(a)
-    mensaje = None
+    mensaje = '¡Datos de la pizza procesados con éxito!'
+    flash(mensaje, 'success')  # Almacena el mensaje para mostrarlo en la siguiente solicitud
 
-    if request.method == 'POST':
-        mensaje = '¡Mensaje enviado!'
-
-    return render_template('index_python_no_js.html', mensaje=mensaje)
-    return render_template('Pizzassueltas.html')
+    # Redirige a una nueva página para mostrar el mensaje
+    return redirect('/mensaje_procesado')   
 
 #Ruta para coger los datos del login  
 @app.route('/login', methods=['GET', 'POST'])

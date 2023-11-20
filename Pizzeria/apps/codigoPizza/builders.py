@@ -102,7 +102,7 @@ class Product1(): #Pizza agrupada
         self.parts.append(part)
 
     def list_parts(self):
-        print(f"Partes de la pizza: {', '.join(self.parts)}", end="")
+        print(f"Partes de la pizza: {', '.join(map(str, filter(None, self.parts)))}", end="")
 
 class Director: #Chef
     '''
