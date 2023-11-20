@@ -1,27 +1,32 @@
 import csv
 
 class GestorUsuarios:
-    def __init__(self, archivo_usuarios="usuarios.csv"):
-        self.archivo_usuarios = archivo_usuarios
 
     def usuario_valido(self, usuario, contrasenia):
-        with open(self.archivo_usuarios, mode='r') as file:
-            leer = csv.DictReader(file)
-            for row in leer:
-                if row['usuario'] == usuario and row['contrasenia'] == contrasenia:
-                    return True
-        return False
+        try:
+            with open("usuarios.csv", mode='r') as file:
+                leer = csv.reader(file)
+                for row in leer:
+                    if row['usuario'] == usuario and row['contrasenia'] == contrasenia:
+                        return True
+            return False
+        except FileNotFoundError:
+            pass
 
     def usuario_existe(self, usuario):
-        with open(self.archivo_usuarios, mode='r') as file:
-            reader = csv.DictReader(file)
-            for row in reader:
-                if row['usuario'] == usuario:
-                    return True
-        return False
+        try:
+            with open("usuarios.csv", mode='r') as file:
+                leer = csv.reader(file)
+                for row in leer:
+                    if row['usuario'] == usuario:
+                        return True
+            return False
+        except FileNotFoundError:
+            pass
+        
 
     def registrar_usuario(self, id_usuario, usuario, contrasenia, correo, telefono, direccion):
-        with open(self.archivo_usuarios, mode='a', newline='') as file:
+        with open("usuarios.csv", mode='a', newline='') as file:
             writer = csv.writer(file)
 
             # Si el archivo está vacío, escribe el encabezado
