@@ -6,7 +6,9 @@ sys.path.append('C:/Users/andre/Documents/GitHub2/Eje_Patrones_Estructurales/Piz
 from flask import render_template, request, redirect, Flask, flash
 from codigoPizza import builders
 from codigoPizza import manejardatos
+from codigoPizza.pedido_pizza import guardar_pedido_en_csv
 import secrets
+
 
 app = Flask(__name__)
 app.secret_key = secrets.token_hex(16)  # Genera una clave secreta hexadecimal de 16 bytes
@@ -41,7 +43,8 @@ def mensaje_procesado():
 #Ruta para recoger los datos de la pizza personalizada
 @app.route('/datos_pizza_per', methods=['POST']) #recibimos los datos en el fichero procesar_pizza
 def datos_pizza_per():
-    print(request.get_data()) #imprimimos los datos recibidos
+    #generamos un id para cada pedido
+    id_cliente = secrets.token_hex(4)
     #recogemos los datos en las dinstintas variables
     masa = request.form.get('masa')
     salsa = request.form.get('salsa')
@@ -74,6 +77,10 @@ def datos_pizza_per():
     builder.pizza.list_parts()
     a = builder.pizza.get_parts() #Lista con todos los datos de la pizza
     print(a)
+    
+    # Guardamos los datos del pedido en el archivo CSV asociado al ID del cliente
+    guardar_pedido_en_csv(id_cliente, a)
+
     mensaje = '¡Datos de la pizza procesados con éxito!'
     flash(mensaje, 'success')  # Almacena el mensaje para mostrarlo en la siguiente solicitud
 
