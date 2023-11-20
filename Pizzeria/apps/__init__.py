@@ -37,7 +37,23 @@ def datos_pizza_per():
     #recogemos los datos en las dinstintas variables
     masa = request.form.get('masa')
     salsa = request.form.get('salsa')
-    ingredientes = request.form.get('ingredientes')
+    ingredientes = [request.form.get('ingredientes_queso'), request.form.get('ingredientes_jamon'), 
+                    request.form.get('ingredientes_bacon'), request.form.get('ingredientes_cebolla'), 
+                    request.form.get('ingredientes_pimiento'), request.form.get('ingredientes_champinon'), 
+                    request.form.get('ingredientes_pina'), request.form.get('ingredientes_atun'), 
+                    request.form.get('ingredientes_aceitunas'), request.form.get('ingredientes_carne'), 
+                    request.form.get('ingredientes_salchicha'), request.form.get('ingredientes_pollo'), 
+                    request.form.get('ingredientes_tomate'), request.form.get('ingredientes_piña'),
+                    request.form.get('ingredientes_maiz'), request.form.get('ingredientes_pepperoni'), 
+                    request.form.get('ingredientes_oregano'), request.form.get('ingredientes_albahaca'), 
+                    request.form.get('ingredientes_rucula'), request.form.get('ingredientes_perejil'),
+                    ]
+    
+    #en caso de no elegir los ingredientes, se le asigna un valor vacio
+    for i in range(len(ingredientes)):
+        if ingredientes[i] == None:
+            ingredientes[i]=''
+            
     coccion = request.form.get('coccion')
     presentacion = request.form.get('presentacion')
     bebida = request.form.get('bebida')
