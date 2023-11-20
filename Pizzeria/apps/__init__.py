@@ -5,7 +5,6 @@ import sys
 sys.path.append('C:/Users/andre/Documents/GitHub2/Eje_Patrones_Estructurales/Pizzeria')
 from flask import render_template, request, redirect, Flask, flash, url_for
 from codigoPizza import builders
-
 from codigoPizza.pedido_pizza import guardar_pedido_en_csv
 from codigoPizza import datos_usuario
 import csv
@@ -128,7 +127,20 @@ def registro():
         correo = request.form.get('email')
         telefono = request.form.get('telefono')
         direccion = request.form.get('direccion')
-        a = datos_usuario.usuario_existe(usuario)
+        
+        with open("usuarios.csv", mode='r') as file:
+            print("hola")
+            leer = csv.reader(file)
+            for row in leer:
+                if row['usuario'] == usuario:
+                    pass
+                else:
+                    print("hola2")
+                    with open("usuarios.csv", mode='w', newline='') as file:
+                        writer = csv.writer(file)
+                        # Agrega al nuevo usuario
+                        writer.writerow([usuario, contrasenia, correo, telefono, direccion])
+        '''a = datos_usuario.usuario_existe(usuario)
 
         # Comprobar si el usuario ya existe en el archivo CSV de usuarios
         if a == False:
@@ -137,7 +149,7 @@ def registro():
             datos_usuario.registrar_usuario( usuario, contrasenia, correo, telefono, direccion)
 
             # Redirigir a la página de inicio después del registro
-            return redirect('/home')
+            return redirect('/home')'''
 
     return render_template('index.html')
         
