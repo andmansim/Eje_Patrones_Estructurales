@@ -114,8 +114,8 @@ def login():
         else:
             flash('Nombre de usuario o contraseña incorrectos', 'error')
 
+    # Si la autenticación falla o si la solicitud es GET, renderiza el formulario de inicio de sesión
     return render_template('login.html')
-
 #registro ususario
 @app.route('/registro', methods=['GET', 'POST'])
 def registro():
