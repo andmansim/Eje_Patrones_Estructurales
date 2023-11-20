@@ -111,11 +111,9 @@ def login():
         # Comprobar si el usuario y la contraseña coinciden en el archivo CSV de usuarios
         if gest_usuarios.usuario_valido(usuario, contrasenia):
             return redirect('/home')
-        else:
-            flash('Nombre de usuario o contraseña incorrectos', 'error')
-
     # Si la autenticación falla o si la solicitud es GET, renderiza el formulario de inicio de sesión
     return render_template('login.html')
+
 #registro ususario
 @app.route('/registro', methods=['GET', 'POST'])
 def registro():
@@ -134,9 +132,7 @@ def registro():
 
             # Redirigir a la página de inicio después del registro
             return redirect('/home')
-        else:
-            flash('El nombre de usuario ya está en uso', 'error')
-
+       
     return render_template('index.html')
         
 
