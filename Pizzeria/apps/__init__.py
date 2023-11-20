@@ -5,8 +5,10 @@ import sys
 sys.path.append('C:/Users/andre/Documents/GitHub2/Eje_Patrones_Estructurales/Pizzeria')
 from flask import render_template, request, redirect, Flask, flash
 from codigoPizza import builders
-from codigoPizza import manejardatos
+
 from codigoPizza.pedido_pizza import guardar_pedido_en_csv
+from codigoPizza import datos_usuario
+
 import secrets
 
 
@@ -15,8 +17,7 @@ app.secret_key = secrets.token_hex(16)  # Genera una clave secreta hexadecimal d
 
 director = builders.Director() #Chef
 builder = builders.ConcreteBuilder1() #Tipo de pizza
-web_pizza = manejardatos.WebPizzeria()
-
+gest_usuarios = datos_usuario.GestorUsuarios()
 #Rutas para las distintas páginas
 
 @app.route('/home')
@@ -98,18 +99,22 @@ def datos_pizza_per():
     # Redirige a una nueva página para mostrar el mensaje
     return redirect('/mensaje_procesado')   
 
+
+
 #Ruta para coger los datos del login  
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
         usuario = request.form.get('username')
         contrasenia = request.form.get('password')
-        print(usuario, contrasenia)
-        if web_pizza.login(usuario, contrasenia):
+
+        # Comprobar si el usuario y la contraseña coinciden en el archivo CSV de usuarios
+        if gest_usuarios.usuario_valido(usuario, contrasenia):
             return redirect('/home')
         else:
-            return render_template('login.html')
-    return render_template('index.html')
+            flash('Nombre de usuario o contraseña incorrectos', 'error')
+
+    return render_template('login.html')
 
 #registro ususario
 @app.route('/registro', methods=['GET', 'POST'])
@@ -117,12 +122,21 @@ def registro():
     if request.method == 'POST':
         usuario = request.form.get('username')
         contrasenia = request.form.get('password')
-        #Debe comprobar la contraseña que sea la misma en los dos campos
         correo = request.form.get('email')
         telefono = request.form.get('telefono')
         direccion = request.form.get('direccion')
-        print(usuario, contrasenia, correo, telefono, direccion)
-    
+
+        # Comprobar si el usuario ya existe en el archivo CSV de usuarios
+        if not gest_usuarios.usuario_existe(usuario):
+
+            # Registramos al usuario en el archivo CSV de usuarios
+            gest_usuarios.registrar_usuario(usuario, contrasenia, correo, telefono, direccion)
+
+            # Redirigir a la página de inicio después del registro
+            return redirect('/home')
+        else:
+            flash('El nombre de usuario ya está en uso', 'error')
+
     return render_template('index.html')
         
 
