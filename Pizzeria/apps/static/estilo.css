@@ -78,6 +78,7 @@ legend{
 .combo-general div {
     width: 30%; /* Ajusta el ancho de cada caja según tus necesidades */
     display: inline-block;
+    border-radius: 10px;
     margin: 10px;
 }
 
