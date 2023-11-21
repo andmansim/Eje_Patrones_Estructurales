@@ -72,3 +72,34 @@ legend{
     background-color: #f0f0f086; 
 }
 
+.combo-general {  
+    border: 2px solid #ccc;
+    border-radius: 8px;
+    margin: 10px;
+    padding: 10px;
+    text-align: left;
+}
+
+.combo-general legend {
+    font-weight: bold;
+    color: #555;
+}
+
+.combo-general div {
+    width: 30%; /* Ajusta el ancho de cada caja según tus necesidades */
+    display: inline-block;
+    margin: 10px;
+}
+
+.combo-general input[type="radio"] {
+    margin-bottom: 5px;
+}
+
+/* Colores de las cajas */
+.combo-general div:nth-child(odd) {
+    background-color: #f2f2f2;
+}
+
+.combo-container div:nth-child(even) {
+    background-color: #e0e0e0;
+}
