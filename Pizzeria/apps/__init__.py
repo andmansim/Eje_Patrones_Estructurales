@@ -9,6 +9,7 @@ from codigoPizza.pedido_pizza import guardar_pedido_en_csv
 from codigoPizza import datos_usuario
 from codigoPizza import composite
 from codigoPizza import menus
+from codigoPizza import datos_usuario
 import csv
 
 import secrets
@@ -114,47 +115,37 @@ def datos_pizza_per():
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
-        usuario = request.form.get('username')
+        nombre = request.form.get('username')
         contrasenia = request.form.get('password')
 
-        # Comprobar si el usuario y la contraseña coinciden en el archivo CSV de usuarios
-        if datos_usuario.usuario_valido(usuario, contrasenia):
-            return redirect(url_for('home'))
+        usuario = datos_usuario.Usuario(nombre, '', '', '', contrasenia)
+        if usuario.usuario_valido():
+            return render_template('index.html')
         else:
-            print('No se ha encontrado el usuario')
+            print('Usuario no valido')
             return render_template('login.html')
+        # Comprobar si el usuario y la contraseña coinciden en el archivo CSV de usuarios
+        
     
 
 #registro ususario
 @app.route('/registro', methods=['GET', 'POST'])
 def registro():
     if request.method == 'POST':
-        usuario = request.form.get('username')
+        nombre = request.form.get('username')
         contrasenia = request.form.get('password')
         correo = request.form.get('email')
         telefono = request.form.get('telefono')
         direccion = request.form.get('direccion')
 
-        # Verificar si el usuario ya existe
-        with open("usuarios.csv", mode='r') as file:
-            leer = csv.reader(file)
-            for row in leer:
-                print(f"Comparando {row[0]} con {usuario}")
-                if row and row[0] == usuario:
-                    print("El usuario ya existe")
-                    flash('¡El usuario ya existe!', 'error')
-                    return render_template('registro.html')
-                
-        try:
-            with open("usuarios.csv", mode='a', newline='') as file:
-                writer = csv.writer(file)
-                writer.writerow([usuario, contrasenia, correo, telefono, direccion])
-        except Exception as e:
-            print(f"Error al escribir en el archivo CSV: {e}")
-            flash('¡Error en el registro!', 'error')
+        usuario = datos_usuario.Usuario(nombre, direccion, telefono, correo, contrasenia)
+        if usuario.usuario_existe():
+            print('Usuario ya existe')
             return render_template('registro.html')
+        else:
+            usuario.registrar_usuario()
+            return render_template('index.html')
 
-    return render_template('registro.html')
 
 
 @app.route('/datos_combo_per', methods=['POST']) 
