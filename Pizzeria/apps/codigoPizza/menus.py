@@ -38,53 +38,44 @@ class Builder(ABC):
         pass
     
     
-class ConcreteBuilder1(Builder): #Es un tipo de pizza, donde personaliza los métodos de la clase Builder
+class ConcreteBuilder1(Builder): 
     '''
-    Le preguntamos al cliente que tipo de pizza quiere y vamos construyendo la pizza según los 
-    métodos que nos pida. 
-    Más adelante debemos de dale sugerencias en base a su historial, etc. 
+    Menu general, el a creado
     '''
 
     def __init__(self) -> None:
         self.reset()
 
     def reset(self) -> None:
-        self._pizza = Product1() #pizza final
+        self._menu = Product1()
 
     @property
-    def pizza(self) -> Product1:
-        pizza = self._pizza
-        #self.reset()
-        return pizza
-
-    def tipo_masa(self, masa) -> None:
-        self._pizza.add(masa)
+    def menu(self) -> Product1:
+        menu = self._menu
+        return menu
     
-    def salsa_base(self, salsa) -> None:
-        self._pizza.add(salsa)
-    
-    def ingr_principales(self, ingrediente) -> None:
-        self._pizza.add(ingrediente)
-    
-    def tec_coccion(self, coccion) -> None:
-        self._pizza.add(coccion)
-    
-    def presentacion(self, presentacion) -> None:
-        self._pizza.add(presentacion)
-    
-    def maridajes(self, maridaje) -> None:
-        self._pizza.add(maridaje)
+    def id_menu(self, id):
+        self._menu.add(id)
         
+    def nombre_menu(self, nombre):
+        self._menu.add(nombre)
     
-    def extras(self, extra) -> None:
-        self._pizza.add(extra)
-        
+    def precio_menu(self, precio):
+        self._menu.add(precio)
     
-
-
+    def bebida_menu(self, bebida):
+        self._menu.add(bebida)
+    
+    def postre_menu(self, postre):
+        self._menu.add(postre)
+    
+    def pizza_menu(self, pizza):
+        self._menu.add(pizza)
+    
+    
 class Product1(): #Pizza agrupada
     '''
-    Unimos cada parte de la pizza y lo almacenamos en una lista.
+    
     '''
 
     def __init__(self) -> None:
@@ -97,7 +88,7 @@ class Product1(): #Pizza agrupada
         self.parts.append(part)
 
     def list_parts(self):
-        print(f"Partes de la pizza: {', '.join(map(str, filter(None, self.parts)))}", end="")
+        print(f"Partes del menu: {', '.join(map(str, filter(None, self.parts)))}", end="")
 
 class Director: #Chef
     '''
@@ -117,13 +108,11 @@ class Director: #Chef
         self._builder = builder
 
     #Construimos el producto según el tipo de pizza que queramos
-    def build_pizza(self, masa, salsa, ingrediente, coccion, presentacion, maridaje, extra) -> None:
-        self.builder.tipo_masa(masa)
-        self.builder.salsa_base(salsa)
-        self.builder.ingr_principales(ingrediente)
-        self.builder.tec_coccion(coccion)
-        self.builder.presentacion(presentacion)
-        self.builder.maridajes(maridaje)
-        self.builder.extras(extra)
-        
+    def build_menu(self, id, nombre, bebida, postre, pizza, precio) -> None:
+        self.builder.id_menu(id)
+        self.builder.nombre_menu(nombre)
+        self.builder.bebida_menu(bebida)
+        self.builder.postre_menu(postre)
+        self.builder.pizza_menu(pizza)
+        self.builder.precio_menu(precio)    
 
