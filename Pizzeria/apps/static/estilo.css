@@ -66,24 +66,14 @@ fieldset{
 }
 legend{
     font-size: 180%;
+    font-weight: bold;
+    color: #555;
 }
 #div4{
     padding: 10px;
     background-color: #f0f0f086; 
 }
 
-.combo-general {  
-    border: 2px solid #ccc;
-    border-radius: 8px;
-    margin: 10px;
-    padding: 10px;
-    text-align: left;
-}
-
-.combo-general legend {
-    font-weight: bold;
-    color: #555;
-}
 
 .combo-general div {
     width: 30%; /* Ajusta el ancho de cada caja según tus necesidades */
@@ -97,9 +87,9 @@ legend{
 
 /* Colores de las cajas */
 .combo-general div:nth-child(odd) {
-    background-color: #f2f2f2;
+    background-color: rgba(160, 197, 231, 0.482);
 }
 
 .combo-container div:nth-child(even) {
-    background-color: #e0e0e0;
+    background-color:rgba(77, 128, 176, 0.482);
 }
