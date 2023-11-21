@@ -161,6 +161,9 @@ def datos_combo():
     id_menu = secrets.token_hex(4)
     #recogemos los datos en las dinstintas variables
     nombre = request.form.get('nombre')
+    '''
+    HAY QUE MODIFICARLO, ESTE DEBE DE COGER EL PRECIO DE CADA COSA Y PASARSELO AL COMPOSITE
+    '''
     precio = request.form.get('precio')
     bebida = request.form.get('bebida')
     postre = request.form.get('postre')
