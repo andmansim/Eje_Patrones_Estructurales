@@ -156,9 +156,9 @@ def registro():
 
 
 @app.route('/datos_combo_per', methods=['POST']) 
-def datos_combo_per():
+def datos_combo():
     #generamos un id para cada pedido
-    id_cliente = secrets.token_hex(4)
+    id_menu = secrets.token_hex(4)
     #recogemos los datos en las dinstintas variables
     nombre = request.form.get('nombre')
     precio = request.form.get('precio')
@@ -169,6 +169,15 @@ def datos_combo_per():
     #Contruimos el combo
     directormenu.builder = buildermenu
     directormenu.build_menu(nombre, bebida, postre, pizza, precio)
+    buildermenu.menu.list_parts()
+    a = buildermenu.menu.get_parts()
+    print(a)
+    guardar_pedido_en_csv(id_menu, a)
+    mensaje = '¡Datos del pedido se han procesado con éxito!'
+    flash(mensaje, 'success')  # Almacena el mensaje para mostrarlo en la siguiente solicitud
+
+    # Redirige a una nueva página para mostrar el mensaje
+    return redirect('/mensaje_procesado')   
 
 if __name__ == '__main__':
     app.run(debug=True)

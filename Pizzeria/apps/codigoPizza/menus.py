@@ -13,9 +13,6 @@ class BuilderMenu(ABC):
     def menu(self) -> None:
         pass
 
-    @abstractmethod
-    def id_menu(self) -> None:
-        pass
     
     @abstractmethod
     def nombre_menu(self) -> None:
@@ -55,9 +52,7 @@ class ConcreteBuilderMenu1(BuilderMenu):
         menu = self._menu
         return menu
     
-    def id_menu(self, id):
-        self._menu.add(id)
-        
+
     def nombre_menu(self, nombre):
         self._menu.add(nombre)
     
@@ -109,8 +104,7 @@ class Director:
         self._buildermenu = buildermenu
 
     #Construimos el producto según el tipo de pizza que queramos
-    def build_menu(self, id, nombre, bebida, postre, pizza, precio) -> None:
-        self.buildermenu.id_menu(id)
+    def build_menu(self, nombre, bebida, postre, pizza, precio) -> None:
         self.buildermenu.nombre_menu(nombre)
         self.buildermenu.bebida_menu(bebida)
         self.buildermenu.postre_menu(postre)
