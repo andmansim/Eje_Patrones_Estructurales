@@ -120,8 +120,10 @@ def login():
         # Comprobar si el usuario y la contraseña coinciden en el archivo CSV de usuarios
         if datos_usuario.usuario_valido(usuario, contrasenia):
             return redirect(url_for('home'))
-    # Si la autenticación falla o si la solicitud es GET, renderiza el formulario de inicio de sesión
-    return render_template('login.html')
+        else:
+            print('No se ha encontrado el usuario')
+            return render_template('login.html')
+    
 
 #registro ususario
 @app.route('/registro', methods=['GET', 'POST'])
