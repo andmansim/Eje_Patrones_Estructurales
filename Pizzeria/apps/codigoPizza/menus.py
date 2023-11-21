@@ -1,113 +1,129 @@
 from __future__ import annotations
 from abc import ABC, abstractmethod
 from typing import Any #tipado dinámigo 
-from composite import Component, Leaf, Composite
-from abc import ABC, abstractmethod
 
-class Producto(ABC):
-    '''
-    Encargado de definir la estructura común de los productos
-    '''
+
+class Builder(ABC):
+    """
+    
+    """
+
+    @property #nos genera los getter y setter de los de abajo
     @abstractmethod
-    def construir(self):
-        pass
-
-class ElementoMenu(Producto):
-    '''
-    Son los elementos inidviduales que puede elegir el cliente, es decir, 
-    la bebida o postre que quiera personalizar al pedir su combo personalizado
-    '''
-    def __init__(self, nombre):
-        self.nombre = nombre
-
-    def construir(self):
-        return Composite(self.nombre)
-
-class Pizza(ElementoMenu):
-    '''
-    Subclase de ElementoMenu, donde se define la pizza, aunque 
-    no se si ponerla como las distintas que hay o crearla sin más
-    '''
-    def __init__(self, nombre, ingredientes):
-        super().__init__(nombre)
-        self.ingredientes = ingredientes
-    def construir(self):
-        return Composite(self.nombre)
-
-class MenuCompuesto(Producto):
-    '''
-    Son los combos ya creados, donde se selecciona el pack. 
-    '''
-    def __init__(self, codigo, nombre):
-        self.codigo = codigo #identificador del menú
-        self.nombre = nombre
-        self.elementos = [] #contendrá las pizzas, bebidas y postres
-
-    def agregar_elemento(self, elemento):
-        self.elementos.append(elemento)
-
-    def construir(self):
-        menu = Composite(self.codigo, self.nombre)
-        for elemento in self.elementos:
-            menu.agregar_elemento(elemento.construir())
-        return menu
-class Builder(ABC): 
-    '''
-    Clase abstracta builder que se encarga de construir y obtener el menú
-    '''
-    @abstractmethod
-    def construir_menu(self):
+    def menu(self) -> None:
         pass
 
     @abstractmethod
-    def obtener_menu(self):
+    def id_menu(self) -> None:
         pass
-
-class MenuGenericoBuilder(Builder):
+    
+    @abstractmethod
+    def nombre_menu(self) -> None:
+        pass
+    
+    @abstractmethod
+    def precio_menu(self) -> None:
+        pass
+    
+    @abstractmethod
+    def bebida_menu(self) -> None:
+        pass   
+    
+    @abstractmethod
+    def postre_menu(self) -> None:
+        pass
+    
+    @abstractmethod
+    def pizza_menu(self) -> None:
+        pass
+    
+    
+class ConcreteBuilder1(Builder): #Es un tipo de pizza, donde personaliza los métodos de la clase Builder
     '''
-    El el concrete builder 1, donde define el menú genérico
-    '''
-    def __init__(self):
-        self.menu = MenuCompuesto("MG", "Menú Genérico")
-
-    def construir_menu(self):
-        pizza_margarita = Pizza("Margarita", ["tomate", "queso", "albahaca"])
-        bebida = ElementoMenu("Bebida Genérica")
-        postre = ElementoMenu("Postre Genérico")
-
-        self.menu.agregar_elemento(pizza_margarita)
-        self.menu.agregar_elemento(bebida)
-        self.menu.agregar_elemento(postre)
-
-    def obtener_menu(self):
-        return self.menu
-
-class MenuPersonalizableBuilder(Builder):
-    '''
-    Concretebuilder2, define el menú personalizable
-    '''
-    def __init__(self):
-        self.menu = MenuCompuesto("MP", "Menú Personalizable")
-
-    def construir_menu(self, pizza, bebida, postre):
-        self.menu.agregar_elemento(pizza)
-        self.menu.agregar_elemento(bebida)
-        self.menu.agregar_elemento(postre)
-
-    def obtener_menu(self):
-        return self.menu
-
-class RestauranteDirector:
-    '''
-    Es el director, que se encarga de construir el menú
+    Le preguntamos al cliente que tipo de pizza quiere y vamos construyendo la pizza según los 
+    métodos que nos pida. 
+    Más adelante debemos de dale sugerencias en base a su historial, etc. 
     '''
 
-    def __init__(self, builder):
-        self.builder = builder
+    def __init__(self) -> None:
+        self.reset()
 
-    def construir_menu(self):
-        self.builder.construir_menu()
+    def reset(self) -> None:
+        self._pizza = Product1() #pizza final
 
-    def obtener_menu(self):
-        return self.builder.obtener_menu()
+    @property
+    def pizza(self) -> Product1:
+        pizza = self._pizza
+        #self.reset()
+        return pizza
+
+    def tipo_masa(self, masa) -> None:
+        self._pizza.add(masa)
+    
+    def salsa_base(self, salsa) -> None:
+        self._pizza.add(salsa)
+    
+    def ingr_principales(self, ingrediente) -> None:
+        self._pizza.add(ingrediente)
+    
+    def tec_coccion(self, coccion) -> None:
+        self._pizza.add(coccion)
+    
+    def presentacion(self, presentacion) -> None:
+        self._pizza.add(presentacion)
+    
+    def maridajes(self, maridaje) -> None:
+        self._pizza.add(maridaje)
+        
+    
+    def extras(self, extra) -> None:
+        self._pizza.add(extra)
+        
+    
+
+
+class Product1(): #Pizza agrupada
+    '''
+    Unimos cada parte de la pizza y lo almacenamos en una lista.
+    '''
+
+    def __init__(self) -> None:
+        self.parts = []
+        
+    def get_parts(self) -> list:
+        return self.parts
+
+    def add(self, part: Any) :
+        self.parts.append(part)
+
+    def list_parts(self):
+        print(f"Partes de la pizza: {', '.join(map(str, filter(None, self.parts)))}", end="")
+
+class Director: #Chef
+    '''
+    Nos prepara todo para poder contruir la pizza según los ingredientes del cliente y 
+    también marcamos el orden de los pasos a seguir.
+    '''
+
+    def __init__(self) -> None:
+        self._builder = None 
+
+    @property
+    def builder(self) -> Builder: #getter del builder
+        return self._builder
+
+    @builder.setter
+    def builder(self, builder: Builder) -> None: #setter del builder
+        self._builder = builder
+
+    #Construimos el producto según el tipo de pizza que queramos
+    def build_pizza(self, masa, salsa, ingrediente, coccion, presentacion, maridaje, extra) -> None:
+        self.builder.tipo_masa(masa)
+        self.builder.salsa_base(salsa)
+        self.builder.ingr_principales(ingrediente)
+        self.builder.tec_coccion(coccion)
+        self.builder.presentacion(presentacion)
+        self.builder.maridajes(maridaje)
+        self.builder.extras(extra)
+        
 
