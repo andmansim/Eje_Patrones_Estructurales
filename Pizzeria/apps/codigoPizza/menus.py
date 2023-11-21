@@ -3,9 +3,9 @@ from abc import ABC, abstractmethod
 from typing import Any #tipado dinámigo 
 
 
-class Builder(ABC):
+class BuilderMenu(ABC):
     """
-    
+    Definimos la interfaz abstracta de los menus o combos.
     """
 
     @property #nos genera los getter y setter de los de abajo
@@ -38,19 +38,20 @@ class Builder(ABC):
         pass
     
     
-class ConcreteBuilder1(Builder): 
+class ConcreteBuilderMenu1(BuilderMenu): 
     '''
-    Menu general, el a creado
+    Aquí vamos a construir el menu o combo según los métodos que nos pida.
+    Este será el personalizado y el genérico, dado que su estructura base es la misma.
     '''
 
     def __init__(self) -> None:
         self.reset()
 
     def reset(self) -> None:
-        self._menu = Product1()
+        self._menu = ProductMenu1()
 
     @property
-    def menu(self) -> Product1:
+    def menu(self) -> ProductMenu1:
         menu = self._menu
         return menu
     
@@ -61,6 +62,7 @@ class ConcreteBuilder1(Builder):
         self._menu.add(nombre)
     
     def precio_menu(self, precio):
+        # es el precio total de todos los productos
         self._menu.add(precio)
     
     def bebida_menu(self, bebida):
@@ -73,9 +75,9 @@ class ConcreteBuilder1(Builder):
         self._menu.add(pizza)
     
     
-class Product1(): #Pizza agrupada
+class ProductMenu1():
     '''
-    
+    Se encarga de juntarlo todo
     '''
 
     def __init__(self) -> None:
@@ -90,29 +92,28 @@ class Product1(): #Pizza agrupada
     def list_parts(self):
         print(f"Partes del menu: {', '.join(map(str, filter(None, self.parts)))}", end="")
 
-class Director: #Chef
+class Director:
     '''
-    Nos prepara todo para poder contruir la pizza según los ingredientes del cliente y 
-    también marcamos el orden de los pasos a seguir.
+    Nos contruye el menu
     '''
 
     def __init__(self) -> None:
-        self._builder = None 
+        self._buildermenu = None 
 
     @property
-    def builder(self) -> Builder: #getter del builder
-        return self._builder
+    def buildermenu(self) -> BuilderMenu: #getter del builder
+        return self._buildermenu
 
-    @builder.setter
-    def builder(self, builder: Builder) -> None: #setter del builder
-        self._builder = builder
+    @buildermenu.setter
+    def builder(self, buildermenu: BuilderMenu) -> None: #setter del builder
+        self._buildermenu = buildermenu
 
     #Construimos el producto según el tipo de pizza que queramos
     def build_menu(self, id, nombre, bebida, postre, pizza, precio) -> None:
-        self.builder.id_menu(id)
-        self.builder.nombre_menu(nombre)
-        self.builder.bebida_menu(bebida)
-        self.builder.postre_menu(postre)
-        self.builder.pizza_menu(pizza)
-        self.builder.precio_menu(precio)    
+        self.buildermenu.id_menu(id)
+        self.buildermenu.nombre_menu(nombre)
+        self.buildermenu.bebida_menu(bebida)
+        self.buildermenu.postre_menu(postre)
+        self.buildermenu.pizza_menu(pizza)
+        self.buildermenu.precio_menu(precio)    
 

@@ -45,8 +45,8 @@ class Composite(Component):
         return precio_total
 
 
-def client_code(component: Component) -> None:
-    print(f"Total Price: {component.coger_precio()}")
+def client_code(component: Component):
+    return component.coger_precio()
 
 
 if __name__ == "__main__":
@@ -67,5 +67,5 @@ if __name__ == "__main__":
     cart.add(tablet)
 
     print("Client: Now I've got a shopping cart:")
-    client_code(cart)
+    print(client_code(cart))
     print("\n")

@@ -7,6 +7,8 @@ from flask import render_template, request, redirect, Flask, flash, url_for
 from codigoPizza import builders
 from codigoPizza.pedido_pizza import guardar_pedido_en_csv
 from codigoPizza import datos_usuario
+from codigoPizza import composite
+from codigoPizza import menus
 import csv
 
 import secrets
@@ -17,6 +19,9 @@ app.secret_key = secrets.token_hex(16)  # Genera una clave secreta hexadecimal d
 
 director = builders.Director() #Chef
 builder = builders.ConcreteBuilder1() #Tipo de pizza
+
+directormenu = menus.Director() #Chef
+buildermenu = menus.ConcreteBuilderMenu1() #Tipo de menu
 
 with open('usuarios.csv', mode='w', newline='') as file:
     writer= csv.writer(file)
@@ -150,6 +155,20 @@ def registro():
     return render_template('registro.html')
 
 
+@app.route('/datos_combo_per', methods=['POST']) 
+def datos_combo_per():
+    #generamos un id para cada pedido
+    id_cliente = secrets.token_hex(4)
+    #recogemos los datos en las dinstintas variables
+    nombre = request.form.get('nombre')
+    precio = request.form.get('precio')
+    bebida = request.form.get('bebida')
+    postre = request.form.get('postre')
+    pizza = request.form.get('pizza')
+    
+    #Contruimos el combo
+    directormenu.builder = buildermenu
+    directormenu.build_menu(nombre, bebida, postre, pizza, precio)
 
 if __name__ == '__main__':
     app.run(debug=True)
