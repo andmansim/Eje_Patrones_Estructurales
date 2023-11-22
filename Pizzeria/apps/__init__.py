@@ -165,19 +165,32 @@ def precios_funct(precios, dato):
 def datos_combo_per():
     #generamos un id para cada pedido
     id_menu = secrets.token_hex(4)
-    #recogemos los datos en las dinstintas variables
-    nombre = request.form.get('nombre')
-    '''
-    HAY QUE MODIFICARLO, ESTE DEBE DE COGER EL PRECIO DE CADA COSA Y PASARSELO AL COMPOSITE
-    '''
-    precio = request.form.get('precio')
-    bebida = request.form.get('bebida')
-    postre = request.form.get('postre')
-    pizza = request.form.get('pizza')
+    combo = [request.form.get('combo1'), request.form.get('combo2'), 
+            request.form.get('combo3')]
+    for i in range(len(combo)):
+            if combo[i] == None:
+                combo[i]=''
+            if combo[i] =='combo1':
+                nombre = request.form.get('combo')
+                pizza = 'Barbacoa'
+                bebida = request.form.get('bebida')
+                postre = request.form.get('postre')
+            elif combo[i] == 'combo2':
+                nombre = request.form.get('combo')
+                bebida = 'Fanta'
+                postre = 'Flan'
+                pizza = request.form.get('pizza')
+            elif combo[i] == 'combo3':
+                nombre = request.form.get('combo')
+                pizza = 'Napolitana'
+                bebida = request.form.get('bebida')
+                postre = request.form.get('postre')
+            
     
+    precio1 = precios_funct(precios, [bebida, pizza, postre])
     #Contruimos el combo
     directormenu.builder = buildermenu
-    directormenu.build_menu(nombre, bebida, postre, pizza, precio)
+    directormenu.build_menu(nombre, bebida, postre, pizza, precio1)
     buildermenu.menu.list_parts()
     a = buildermenu.menu.get_parts()
     print(a)
@@ -191,6 +204,8 @@ def datos_combo_per():
 @app.route('/datos_combo', methods=['POST'])
 def datos_combo():
     if request.method == 'POST':
+        #generamos un id para cada pedido
+        id_menu = secrets.token_hex(4)
         combo = [request.form.get('combo1'), request.form.get('combo2'), 
                  request.form.get('combo3'), request.form.get('combo4'),
                  request.form.get('combo5'), request.form.get('combo6')]
@@ -231,7 +246,15 @@ def datos_combo():
         precio1 = precios_funct(precios, [bebida, pizza, postre])
         directormenu.builder = buildermenu
         directormenu.build_menu(nombre, bebida, postre, pizza, precio1)
-            
+        buildermenu.menu.list_parts()
+        a = buildermenu.menu.get_parts()
+        print(a)
+        guardar_pedido_en_csv(id_menu, a)
+        mensaje = '¡Datos del pedido se han procesado con éxito!'
+        flash(mensaje, 'success')  # Almacena el mensaje para mostrarlo en la siguiente solicitud
+
+        # Redirige a una nueva página para mostrar el mensaje
+        return redirect('/mensaje_procesado')     
         
         
 if __name__ == '__main__':
