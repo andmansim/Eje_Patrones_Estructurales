@@ -28,9 +28,7 @@ builder = builders.ConcreteBuilder1() #Tipo de pizza
 directormenu = menus.Director() #Chef
 buildermenu = menus.ConcreteBuilderMenu1() #Tipo de menu
 
-with open('usuarios.csv', mode='w', newline='') as file:
-    writer= csv.writer(file)
-    writer.writerow(['usuario', 'contrasenia', 'correo', 'telefono', 'direccion'])
+
 
 #Rutas para las distintas páginas
 
@@ -102,7 +100,7 @@ def datos_pizza_per():
     director.build_pizza(masa, salsa, str(ingredientes), coccion, presentacion, bebida, postre) #Le decimos al chef los pasos a seguir para dicha pizza
     builder.pizza.list_parts()
     a = builder.pizza.get_parts() #Lista con todos los datos de la pizza
-    print(a)
+
     
     # Guardamos los datos del pedido en el archivo CSV asociado al ID del cliente
     guardar_pedido_pizza(id_cliente, a)
@@ -171,12 +169,12 @@ def datos_combo_per():
     pizza = request.form.get('pizza')
     postre = request.form.get('postre')
     precio1 = precios_funct(precios_dict, [bebida, pizza, postre])
+    
     #Contruimos el combo
     directormenu.builder = buildermenu
     directormenu.build_menu(nombre, bebida, postre, pizza, precio1)
     buildermenu.menu.list_parts()
     a = buildermenu.menu.get_parts()
-    print(a)
     guardar_pedido_combo(id_menu, a)
     
     mensaje = f'¡Datos del pedido procesados con éxito! Precio {precio1}€'
@@ -191,32 +189,32 @@ def datos_combo():
         #generamos un id para cada pedido
         id_menu = secrets.token_hex(4)
         combo = request.form.get('combo')
-        
-        
-        
+
         if combo == 'Combo 1':
             nombre = 'Combo 1'
-            bebida = 'Pepsi'
-            pizza = 'Barbacoa'
-            postre= 'Helado'
+            bebida = 'pepsi'
+            pizza = 'barbacoa'
+            postre= 'helado'
             
         if combo == 'Combo 2':
+            
             nombre = 'Combo 2'
-            bebida = 'Coca-Cola'
-            pizza = 'Napolitana'
-            postre= 'Fruta'
+            bebida = 'coca_cola'
+            pizza = 'napolitana'
+            postre= 'fruta'
+            
         if combo == 'Combo 3':
             nombre = 'Combo 3'
-            bebida = 'Fanta'
-            pizza = '4 Quesos'
-            postre= 'Flan'
-
+            bebida = 'fanta'
+            pizza = 'cuatro_quesos'
+            postre= 'flan'
+        
         precio1 = precios_funct(precios_dict, [bebida, pizza, postre])
         directormenu.builder = buildermenu
         directormenu.build_menu(nombre, bebida, postre, pizza, precio1)
         buildermenu.menu.list_parts()
         a = buildermenu.menu.get_parts()
-        print(a)
+        
         guardar_pedido_combo(id_menu, a)
         
         #Mensaje de confirmación
