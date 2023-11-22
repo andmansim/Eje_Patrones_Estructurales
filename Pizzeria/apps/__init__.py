@@ -151,12 +151,13 @@ def registro():
             usuario.registrar_usuario()
             return render_template('index.html')
 
-def precios(precios, dato):
+def precios_funct(precios, dato):
     padre = composite.Composite()
-    for key, value in precios:
-        if dato == key:
-            hoja = composite.Leaf(value)
-            padre.add(hoja)
+    for j in dato:
+        for key, value in precios:
+            if j == key:
+                hoja = composite.Leaf(value)
+                padre.add(hoja)
     precio_total = composite.client_code(padre)      
     return precio_total
 
@@ -201,6 +202,7 @@ def datos_combo():
                 bebida = 'Pepsi'
                 pizza = 'Barbacoa'
                 postre= 'Helado'
+                
             elif combo[i] == 'combo2':
                 nombre = 'Combo 2'
                 bebida = 'Coca-Cola'
@@ -226,9 +228,9 @@ def datos_combo():
                 bebida = 'Cerveza'
                 pizza = 'Cuatro estaciones'
                 postre= 'Galletas'
-                
+        precio1 = precios_funct(precios, [bebida, pizza, postre])
         directormenu.builder = buildermenu
-        directormenu.build_menu(nombre, bebida, postre, pizza, precios(precios))
+        directormenu.build_menu(nombre, bebida, postre, pizza, precio1)
             
         
         
