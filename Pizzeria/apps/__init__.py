@@ -14,7 +14,10 @@ import csv
 
 import secrets
 
-
+precios = {'agua':1.5, 'sopresa':3, 'vino_blaco':2.5, 'cerveza':2.5, 'zumo':1.5, 'leche':1.5, 
+           'cafe': 2, 'infusion':1, 'licor':4, 'cava':4, 'batido':2, 'smoothie':2.25, 'granizado':2, 
+           'te': 3, 'fanta':6, 'coca_cola':7, 'pepsi':5, 'yogurt':3, 'helado':6, 'tarta':9, 'fruta':1, 
+           'galletas':3, 'postre_del_dia':6, 'flan':2, 'tarta_de_queso':8, 'tarta_de_chocolate':5}
 app = Flask(__name__)
 app.secret_key = secrets.token_hex(16)  # Genera una clave secreta hexadecimal de 16 bytes
 
@@ -103,7 +106,7 @@ def datos_pizza_per():
     # Guardamos los datos del pedido en el archivo CSV asociado al ID del cliente
     guardar_pedido_en_csv(id_cliente, a)
 
-    mensaje = '¡Datos de la pizza procesados con éxito!'
+    mensaje = '¡Datos del pedido procesados con éxito!'
     flash(mensaje, 'success')  # Almacena el mensaje para mostrarlo en la siguiente solicitud
 
     # Redirige a una nueva página para mostrar el mensaje
@@ -149,7 +152,7 @@ def registro():
 
 
 @app.route('/datos_combo_per', methods=['POST']) 
-def datos_combo():
+def datos_combo_per():
     #generamos un id para cada pedido
     id_menu = secrets.token_hex(4)
     #recogemos los datos en las dinstintas variables
@@ -175,6 +178,51 @@ def datos_combo():
     # Redirige a una nueva página para mostrar el mensaje
     return redirect('/mensaje_procesado')   
 
+@app.route('/datos_combo', methods=['POST'])
+def datos_combo():
+    if request.method == 'POST':
+        combo = [request.form.get('combo1'), request.form.get('combo2'), 
+                 request.form.get('combo3'), request.form.get('combo4'),
+                 request.form.get('combo5'), request.form.get('combo6')]
+        for i in range(len(combo)):
+            if combo[i] == None:
+                combo[i]=''
+            if combo[i] == 'combo1':
+                nombre = 'Combo 1'
+                bebida = 'Pepsi'
+                pizza = 'Barbacoa'
+                postre= 'Helado'
+            elif combo[i] == 'combo2':
+                nombre = 'Combo 2'
+                bebida = 'Coca-Cola'
+                pizza = 'Napolitana'
+                postre= 'Fruta'
+            elif combo[i] == 'combo3':
+                nombre = 'Combo 3'
+                bebida = 'Fanta'
+                pizza = '4 Quesos'
+                postre= 'Flan'
+            elif combo[i] == 'combo4':
+                nombre = 'Combo 4'
+                bebida = 'Granizado'
+                pizza = 'Margarita'
+                postre= 'Tarta de queso'
+            elif combo[i] == 'combo5':
+                nombre = 'Combo 5'
+                bebida = 'Agua'
+                pizza = 'Carbonara'
+                postre= 'Tarta de chocolate'
+            elif combo[i] == 'combo6':
+                nombre = 'Combo 6'
+                bebida = 'Cerveza'
+                pizza = 'Cuatro estaciones'
+                postre= 'Galletas'
+                
+        directormenu.builder = buildermenu
+        directormenu.build_menu(nombre, bebida, postre, pizza, precio)
+            
+        
+        
 if __name__ == '__main__':
     app.run(debug=True)
     
