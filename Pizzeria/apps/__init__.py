@@ -17,7 +17,9 @@ import secrets
 precios = {'agua':1.5, 'sopresa':3, 'vino_blaco':2.5, 'cerveza':2.5, 'zumo':1.5, 'leche':1.5, 
            'cafe': 2, 'infusion':1, 'licor':4, 'cava':4, 'batido':2, 'smoothie':2.25, 'granizado':2, 
            'te': 3, 'fanta':6, 'coca_cola':7, 'pepsi':5, 'yogurt':3, 'helado':6, 'tarta':9, 'fruta':1, 
-           'galletas':3, 'postre_del_dia':6, 'flan':2, 'tarta_de_queso':8, 'tarta_de_chocolate':5}
+           'galletas':3, 'postre_del_dia':6, 'flan':2, 'tarta_de_queso':8, 'tarta_de_chocolate':5, 
+           'pizza': 15, 'barbacoa': 12, 'napolitana':13, '4_quesos':16, 'margarita':10, 
+           'carbonara':16, 'cuatro_estaciones':18, 'especial':20}
 app = Flask(__name__)
 app.secret_key = secrets.token_hex(16)  # Genera una clave secreta hexadecimal de 16 bytes
 
