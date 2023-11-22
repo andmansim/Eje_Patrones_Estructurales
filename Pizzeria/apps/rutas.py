@@ -225,6 +225,3 @@ def datos_combo():
         return render_template('mensaje_procesado.html', mensaje=mensaje)
         
         
-if __name__ == '__main__':
-    app.run(debug=True)
-    
