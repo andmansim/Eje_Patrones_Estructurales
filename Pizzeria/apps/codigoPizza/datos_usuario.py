@@ -11,22 +11,24 @@ class Usuario:
         self.ordenes = []
         
     def usuario_valido(self):
-        
-        with open("usuarios.csv", mode='r', newline='') as file:
-            leer = csv.DictReader(file)
-            for row in leer:
-                if row['nombre'] == self.nombre and row['contrasenia'] == self.contrasenia:
-                    return True
+        file_exists = os.path.isfile("usuarios.csv")
+        if file_exists: #Por si no existe el csv escribe el encabezado
+            with open("usuarios.csv", mode='r', newline='') as file:
+                leer = csv.DictReader(file)
+                for row in leer:
+                    if row['nombre'] == self.nombre and row['contrasenia'] == self.contrasenia:
+                        return True
         return False
         
     def usuario_existe(self):
-
-        with open("usuarios.csv", mode='r', newline='') as file:
-            
-            leer = csv.DictReader(file)
-            for row in leer:
-                if row['nombre'] == self.nombre:
-                    return True
+        file_exists = os.path.isfile("usuarios.csv")
+        if file_exists:
+            with open("usuarios.csv", mode='r', newline='') as file:
+                
+                leer = csv.DictReader(file)
+                for row in leer:
+                    if row['nombre'] == self.nombre:
+                        return True
         return False
 
 
