@@ -151,7 +151,14 @@ def registro():
             usuario.registrar_usuario()
             return render_template('index.html')
 
-
+def precios(precios, dato):
+    padre = composite.Composite()
+    for key, value in precios:
+        if dato == key:
+            hoja = composite.Leaf(value)
+            padre.add(hoja)
+    precio_total = composite.client_code(padre)      
+    return precio_total
 
 @app.route('/datos_combo_per', methods=['POST']) 
 def datos_combo_per():
@@ -221,7 +228,7 @@ def datos_combo():
                 postre= 'Galletas'
                 
         directormenu.builder = buildermenu
-        directormenu.build_menu(nombre, bebida, postre, pizza, precio)
+        directormenu.build_menu(nombre, bebida, postre, pizza, precios(precios))
             
         
         
