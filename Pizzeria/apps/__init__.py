@@ -14,7 +14,7 @@ import csv
 
 import secrets
 
-precios = {'Sin bebida': 0, 'Sin postre':0, agua':1.5, 'sopresa':3, 'vino_blaco':2.5, 'cerveza':2.5, 'zumo':1.5, 'leche':1.5, 
+precios = {'Sin bebida': 0, 'Sin postre':0, 'agua':1.5, 'sopresa':3, 'vino_blaco':2.5, 'cerveza':2.5, 'zumo':1.5, 'leche':1.5, 
            'cafe': 2, 'infusion':1, 'licor':4, 'cava':4, 'batido':2, 'smoothie':2.25, 'granizado':2, 
            'te': 3, 'fanta':6, 'coca_cola':7, 'pepsi':5, 'yogurt':3, 'helado':6, 'tarta':9, 'fruta':1, 
            'galletas':3, 'postre_del_dia':6, 'flan':2, 'tarta_de_queso':8, 'tarta_de_chocolate':5, 
@@ -97,7 +97,7 @@ def datos_pizza_per():
     bebida = request.form.get('bebida')
     postre = request.form.get('postre')
 
-    
+    precio1 = precios_funct(precios, [bebida, 'pizza', postre])
     #Contruimos la pizza
     director.builder = builder #Le decimos al chef que tipo de pizza queremos
     director.build_pizza(masa, salsa, str(ingredientes), coccion, presentacion, bebida, postre) #Le decimos al chef los pasos a seguir para dicha pizza
@@ -108,7 +108,7 @@ def datos_pizza_per():
     # Guardamos los datos del pedido en el archivo CSV asociado al ID del cliente
     guardar_pedido_pizza(id_cliente, a)
 
-    mensaje = '¡Datos del pedido procesados con éxito!'
+    mensaje = f'¡Datos del pedido procesados con éxito! Precio {precio1}'
     flash(mensaje, 'success')  # Almacena el mensaje para mostrarlo en la siguiente solicitud
 
     # Redirige a una nueva página para mostrar el mensaje
@@ -165,28 +165,11 @@ def precios_funct(precios, dato):
 def datos_combo_per():
     #generamos un id para cada pedido
     id_menu = secrets.token_hex(4)
-    combo = [request.form.get('combo1'), request.form.get('combo2'), 
-            request.form.get('combo3')]
-    for i in range(len(combo)):
-            if combo[i] == None:
-                combo[i]=''
-            if combo[i] =='combo1':
-                nombre = request.form.get('combo')
-                pizza = 'Barbacoa'
-                bebida = request.form.get('bebida')
-                postre = request.form.get('postre')
-            elif combo[i] == 'combo2':
-                nombre = request.form.get('combo')
-                bebida = 'Fanta'
-                postre = 'Flan'
-                pizza = request.form.get('pizza')
-            elif combo[i] == 'combo3':
-                nombre = request.form.get('combo')
-                pizza = 'Napolitana'
-                bebida = request.form.get('bebida')
-                postre = request.form.get('postre')
-            
     
+    nombre = 'Combo personalizado'
+    bebida = request.form.get('bebida')
+    pizza = request.form.get('pizza')
+    postre = request.form.get('postre')
     precio1 = precios_funct(precios, [bebida, pizza, postre])
     #Contruimos el combo
     directormenu.builder = buildermenu
@@ -195,7 +178,7 @@ def datos_combo_per():
     a = buildermenu.menu.get_parts()
     print(a)
     guardar_pedido_combo(id_menu, a)
-    mensaje = '¡Datos del pedido se han procesado con éxito!'
+    mensaje = f'¡Datos del pedido procesados con éxito! Precio {precio1}'
     flash(mensaje, 'success')  # Almacena el mensaje para mostrarlo en la siguiente solicitud
 
     # Redirige a una nueva página para mostrar el mensaje
@@ -237,7 +220,7 @@ def datos_combo():
         a = buildermenu.menu.get_parts()
         print(a)
         guardar_pedido_combo(id_menu, a)
-        mensaje = '¡Datos del pedido se han procesado con éxito!'
+        mensaje = f'¡Datos del pedido procesados con éxito! Precio {precio1}'
         flash(mensaje, 'success')  # Almacena el mensaje para mostrarlo en la siguiente solicitud
 
         # Redirige a una nueva página para mostrar el mensaje
