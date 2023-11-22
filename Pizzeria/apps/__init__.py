@@ -109,7 +109,7 @@ def datos_pizza_per():
     guardar_pedido_pizza(id_cliente, a)
 
     # Redirige a una nueva página para mostrar el mensaje
-    mensaje = f'¡Datos del pedido procesados con éxito! Precio {precio1}'
+    mensaje = f'¡Datos del pedido procesados con éxito! Precio {precio1}€'
     flash(mensaje, 'success')  # Almacena el mensaje para mostrarlo en la siguiente solicitud
 
     # Redirige a una nueva página para mostrar el mensaje
@@ -180,7 +180,7 @@ def datos_combo_per():
     print(a)
     guardar_pedido_combo(id_menu, a)
     
-    mensaje = f'¡Datos del pedido procesados con éxito! Precio {precio1}'
+    mensaje = f'¡Datos del pedido procesados con éxito! Precio {precio1}€'
     flash(mensaje, 'success')  # Almacena el mensaje para mostrarlo en la siguiente solicitud
 
     # Redirige a una nueva página para mostrar el mensaje
@@ -224,7 +224,7 @@ def datos_combo():
         guardar_pedido_combo(id_menu, a)
         
         #Mensaje de confirmación
-        mensaje = f'¡Datos del pedido procesados con éxito! Precio {precio1}'
+        mensaje = f'¡Datos del pedido procesados con éxito! Precio {precio1}€'
         flash(mensaje, 'success')  # Almacena el mensaje para mostrarlo en la siguiente solicitud
 
         # Redirige a una nueva página para mostrar el mensaje
