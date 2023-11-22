@@ -228,21 +228,7 @@ def datos_combo():
                 bebida = 'Fanta'
                 pizza = '4 Quesos'
                 postre= 'Flan'
-            elif combo[i] == 'combo4':
-                nombre = 'Combo 4'
-                bebida = 'Granizado'
-                pizza = 'Margarita'
-                postre= 'Tarta de queso'
-            elif combo[i] == 'combo5':
-                nombre = 'Combo 5'
-                bebida = 'Agua'
-                pizza = 'Carbonara'
-                postre= 'Tarta de chocolate'
-            elif combo[i] == 'combo6':
-                nombre = 'Combo 6'
-                bebida = 'Cerveza'
-                pizza = 'Cuatro estaciones'
-                postre= 'Galletas'
+
         precio1 = precios_funct(precios, [bebida, pizza, postre])
         directormenu.builder = buildermenu
         directormenu.build_menu(nombre, bebida, postre, pizza, precio1)
