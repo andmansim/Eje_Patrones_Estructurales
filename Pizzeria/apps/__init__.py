@@ -5,7 +5,7 @@ import sys
 sys.path.append('C:/Users/andre/Documents/GitHub2/Eje_Patrones_Estructurales/Pizzeria')
 from flask import render_template, request, redirect, Flask, flash, url_for
 from codigoPizza import builders
-from codigoPizza.pedido_pizza import guardar_pedido_en_csv
+from codigoPizza.guard_pedido import guardar_pedido_combo, guardar_pedido_pizza
 from codigoPizza import datos_usuario
 from codigoPizza import composite
 from codigoPizza import menus
@@ -14,12 +14,12 @@ import csv
 
 import secrets
 
-precios = {'agua':1.5, 'sopresa':3, 'vino_blaco':2.5, 'cerveza':2.5, 'zumo':1.5, 'leche':1.5, 
+precios = {'Sin bebida': 0, 'Sin postre':0, agua':1.5, 'sopresa':3, 'vino_blaco':2.5, 'cerveza':2.5, 'zumo':1.5, 'leche':1.5, 
            'cafe': 2, 'infusion':1, 'licor':4, 'cava':4, 'batido':2, 'smoothie':2.25, 'granizado':2, 
            'te': 3, 'fanta':6, 'coca_cola':7, 'pepsi':5, 'yogurt':3, 'helado':6, 'tarta':9, 'fruta':1, 
            'galletas':3, 'postre_del_dia':6, 'flan':2, 'tarta_de_queso':8, 'tarta_de_chocolate':5, 
-           'pizza': 15, 'barbacoa': 12, 'napolitana':13, '4_quesos':16, 'margarita':10, 
-           'carbonara':16, 'cuatro_estaciones':18, 'especial':20}
+           'pizza': 15, 'barbacoa': 12, 'napolitana':13, 'cuatro_quesos':16, 'margarita':10, 
+           'carbonara':16, 'cuatro_estaciones':18, 'especial':20, 'vegetal':15, 'hawaiana':15,}
 app = Flask(__name__)
 app.secret_key = secrets.token_hex(16)  # Genera una clave secreta hexadecimal de 16 bytes
 
@@ -106,7 +106,7 @@ def datos_pizza_per():
     print(a)
     
     # Guardamos los datos del pedido en el archivo CSV asociado al ID del cliente
-    guardar_pedido_en_csv(id_cliente, a)
+    guardar_pedido_pizza(id_cliente, a)
 
     mensaje = '¡Datos del pedido procesados con éxito!'
     flash(mensaje, 'success')  # Almacena el mensaje para mostrarlo en la siguiente solicitud
@@ -194,7 +194,7 @@ def datos_combo_per():
     buildermenu.menu.list_parts()
     a = buildermenu.menu.get_parts()
     print(a)
-    guardar_pedido_en_csv(id_menu, a)
+    guardar_pedido_combo(id_menu, a)
     mensaje = '¡Datos del pedido se han procesado con éxito!'
     flash(mensaje, 'success')  # Almacena el mensaje para mostrarlo en la siguiente solicitud
 
@@ -209,6 +209,7 @@ def datos_combo():
         combo = [request.form.get('combo1'), request.form.get('combo2'), 
                  request.form.get('combo3'), request.form.get('combo4'),
                  request.form.get('combo5'), request.form.get('combo6')]
+        
         for i in range(len(combo)):
             if combo[i] == None:
                 combo[i]=''
@@ -218,12 +219,12 @@ def datos_combo():
                 pizza = 'Barbacoa'
                 postre= 'Helado'
                 
-            elif combo[i] == 'combo2':
+            if combo[i] == 'combo2':
                 nombre = 'Combo 2'
                 bebida = 'Coca-Cola'
                 pizza = 'Napolitana'
                 postre= 'Fruta'
-            elif combo[i] == 'combo3':
+            if combo[i] == 'combo3':
                 nombre = 'Combo 3'
                 bebida = 'Fanta'
                 pizza = '4 Quesos'
@@ -235,7 +236,7 @@ def datos_combo():
         buildermenu.menu.list_parts()
         a = buildermenu.menu.get_parts()
         print(a)
-        guardar_pedido_en_csv(id_menu, a)
+        guardar_pedido_combo(id_menu, a)
         mensaje = '¡Datos del pedido se han procesado con éxito!'
         flash(mensaje, 'success')  # Almacena el mensaje para mostrarlo en la siguiente solicitud
 
