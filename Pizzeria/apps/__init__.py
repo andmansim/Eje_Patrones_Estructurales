@@ -3,7 +3,7 @@ Este archivo se encarga de conectar la web con el código
 '''
 import sys
 sys.path.append('C:/Users/andre/Documents/GitHub2/Eje_Patrones_Estructurales/Pizzeria')
-from flask import render_template, request, redirect, Flask, flash, url_for
+from flask import render_template, request,  Flask, flash
 from codigoPizza import builders
 from codigoPizza.guard_pedido import guardar_pedido_combo, guardar_pedido_pizza
 from codigoPizza import datos_usuario
@@ -11,7 +11,6 @@ from codigoPizza import composite
 from codigoPizza import menus
 from codigoPizza import datos_usuario
 import csv
-
 import secrets
 
 precios_dict = {'Sin bebida': 0, 'Sin postre':0, 'agua':1.5, 'sopresa':3, 'vino_blaco':2.5, 'cerveza':2.5, 'zumo':1.5, 'leche':1.5, 
@@ -191,29 +190,26 @@ def datos_combo():
     if request.method == 'POST':
         #generamos un id para cada pedido
         id_menu = secrets.token_hex(4)
-        combo = [request.form.get('combo1'), request.form.get('combo2'), 
-                 request.form.get('combo3'), request.form.get('combo4'),
-                 request.form.get('combo5'), request.form.get('combo6')]
+        combo = request.form.get('combo')
         
-        for i in range(len(combo)):
-            if combo[i] == None:
-                combo[i]=''
-            if combo[i] == 'combo1':
-                nombre = 'Combo 1'
-                bebida = 'Pepsi'
-                pizza = 'Barbacoa'
-                postre= 'Helado'
-                
-            if combo[i] == 'combo2':
-                nombre = 'Combo 2'
-                bebida = 'Coca-Cola'
-                pizza = 'Napolitana'
-                postre= 'Fruta'
-            if combo[i] == 'combo3':
-                nombre = 'Combo 3'
-                bebida = 'Fanta'
-                pizza = '4 Quesos'
-                postre= 'Flan'
+        
+        
+        if combo == 'Combo 1':
+            nombre = 'Combo 1'
+            bebida = 'Pepsi'
+            pizza = 'Barbacoa'
+            postre= 'Helado'
+            
+        if combo == 'Combo 2':
+            nombre = 'Combo 2'
+            bebida = 'Coca-Cola'
+            pizza = 'Napolitana'
+            postre= 'Fruta'
+        if combo == 'Combo 3':
+            nombre = 'Combo 3'
+            bebida = 'Fanta'
+            pizza = '4 Quesos'
+            postre= 'Flan'
 
         precio1 = precios_funct(precios_dict, [bebida, pizza, postre])
         directormenu.builder = buildermenu
