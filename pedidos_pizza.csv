@@ -1,2 +1,3 @@
 id_cliente,Masa,Salsa,Ingredientes,Cocción,Presentación,Bebida,Postre
 b0028935,normal,barbacoa,"['', '', '', '', 'pimiento', '', '', '', '', '', '', '', '', '', '', '', 'oregano', '', '', '']",horno_eléctrico,Sin presentación,té,tarta
+9a6bf55f,normal,tomate,"['', 'jamon', '', 'cebolla', '', '', '', '', '', '', 'salchicha', 'pollo', '', 'piña', '', '', '', '', 'rucula', '']",horno_eléctrico,plato_de_madera,cerveza,tarta

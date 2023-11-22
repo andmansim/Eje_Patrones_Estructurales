@@ -28,7 +28,9 @@ builder = builders.ConcreteBuilder1() #Tipo de pizza
 directormenu = menus.Director() #Chef
 buildermenu = menus.ConcreteBuilderMenu1() #Tipo de menu
 
-
+with open('usuarios.csv', mode='w', newline='') as file:
+    writer= csv.writer(file)
+    writer.writerow(['usuario', 'contrasenia', 'correo', 'telefono', 'direccion'])
 
 #Rutas para las distintas páginas
 
@@ -142,6 +144,7 @@ def registro():
         direccion = request.form.get('direccion')
 
         usuario = datos_usuario.Usuario(nombre, direccion, telefono, correo, contrasenia)
+        print(usuario)
         if usuario.usuario_existe():
             print('Usuario ya existe')
             return render_template('registro.html')
