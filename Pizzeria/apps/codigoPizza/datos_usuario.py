@@ -2,6 +2,9 @@ import csv
 import os
 
 class Usuario:
+    '''
+    Clase encargada de manejar los datos de los usuarios, como su comprobación, registro y almacenamiento
+    '''
     def __init__(self, nombre, direccion, telefono, correo, contrasenia):
         self.nombre = nombre
         self.direccion = direccion

@@ -19,6 +19,7 @@ def guardar_pedido_pizza(id_cliente, datos_pedido):
         # Agrega el nuevo pedido con el id_cliente
         writer.writerow([id_cliente] + datos_pedido)
 
+
 def guardar_pedido_combo(id_cliente, datos_pedido):
     # Define la ruta del archivo CSV basada en el ID del cliente
     archivo_csv = "pedidos_combo.csv"

@@ -6,7 +6,7 @@ from typing import List
 class Component(ABC):
     '''
     Definimos la interfaz de los objetos que formarán la estructura de árbol.
-    En otras palabras, el método para coger el precio de los menus.
+    En otras palabras, el método para coger el precio de los menús.
     '''
     @abstractmethod
     def coger_precio(self) -> float:
