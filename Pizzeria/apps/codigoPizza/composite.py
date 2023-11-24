@@ -49,23 +49,4 @@ def client_code(component: Component):
     return component.coger_precio()
 
 
-if __name__ == "__main__":
-    # This way the client code can support the simple leaf components...
-    laptop = Leaf(1000.0)
-    print("Client: I've got a laptop:")
-    client_code(laptop)
-    print("\n")
 
-    # ...as well as the complex composites.
-    cart = Composite()
-
-    smartphone = Leaf(500.0)
-    tablet = Leaf(300.0)
-
-    cart.add(laptop)
-    cart.add(smartphone)
-    cart.add(tablet)
-
-    print("Client: Now I've got a shopping cart:")
-    print(client_code(cart))
-    print("\n")

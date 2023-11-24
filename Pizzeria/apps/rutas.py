@@ -6,7 +6,7 @@ import sys
 sys.path.append('C:/Users/andre/Documents/GitHub2/Eje_Patrones_Estructurales/Pizzeria')
 from flask import render_template, request,  Flask, flash
 from codigoPizza import builders
-from codigoPizza.guard_pedido import guardar_pedido_combo, guardar_pedido_pizza
+from codigoPizza.guard_pedido import guardar_pedido
 from codigoPizza import datos_usuario
 from codigoPizza import composite
 from codigoPizza import menus
@@ -131,7 +131,7 @@ def datos_pizza_per():
 
     
     # Guardamos los datos del pedido en el archivo CSV asociado al ID del cliente
-    guardar_pedido_pizza(id_cliente, a)
+    guardar_pedido(id_cliente, a, 'pizza')
 
     # Redirige a una nueva página para mostrar el mensaje
     mensaje = f'¡Datos del pedido procesados con éxito! Precio {precio1}€'
@@ -211,7 +211,7 @@ def datos_combo_per():
     a = buildermenu.menu.get_parts()
     
     # Guardamos los datos del pedido en el archivo CSV asociado al ID del cliente
-    guardar_pedido_combo(id_menu, a)
+    guardar_pedido(id_menu, a, 'combo')
     
     #Mensaje de confirmación
     mensaje = f'¡Datos del pedido procesados con éxito! Precio {precio1}€'
@@ -260,7 +260,7 @@ def datos_combo():
         a = buildermenu.menu.get_parts()
         
         # Guardamos los datos del pedido en el archivo CSV asociado al ID del cliente
-        guardar_pedido_combo(id_menu, a)
+        guardar_pedido(id_menu, a, 'combo')
         
         #Mensaje de confirmación
         mensaje = f'¡Datos del pedido procesados con éxito! Precio {precio1}€'
