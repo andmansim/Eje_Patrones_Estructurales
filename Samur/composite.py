@@ -1,7 +1,7 @@
 from __future__ import annotations
 from abc import ABC, abstractmethod
 from typing import List
-
+import datetime
 
 class Component(ABC):
     '''
@@ -19,11 +19,23 @@ class Leaf(Component): #Documentos
     lo más simple del árbol son las hojas, que no tienen hijos. En nuestro código
     esto son los documentos. 
     '''
-    def __init__(self, nombre) -> None:
-        self._nombre = nombre
+    def __init__(self, nombre, tipo, tamanio, sensible) -> None:
+        self.nombre = nombre
+        self.tipo = tipo
+        self.tamnio = tamanio
+        self.sensible = sensible
+        self.fecha_creacion = datetime.datetime.now()
+        self.fecha_modificacion = None
+
 
     def mostrar(self) -> None:
         print(f"Documento: {self._nombre}")
+        print(f"Tipo: {self._tipo}")
+        print(f"Tamaño: {self._tamanio}")
+        print(f"Sensible: {self._sensible}")
+        print(f"Fecha de creación: {self._fecha_creacion}")
+        print(f"Fecha de modificación: {self._fecha_modificacion}")
+        
 
 class CompositeCarpeta(Component): #Carpetas
     '''
@@ -40,6 +52,18 @@ class CompositeCarpeta(Component): #Carpetas
     def remove(self, component: Component) -> None:
         self._hijo.remove(component)
 
+    def tamanio_total(self):
+        #Calculamos el tamaño total de la carpeta
+        tamanio = 0
+        for elemento in self.contenido:
+            tamanio += elemento.tamanio
+        return tamanio 
+    
+    def buscar_contenido(self, nombre):
+        for elemento in self.contenido:
+            if elemento.nombre == nombre:
+                return elemento
+        return None
     def mostrar(self) -> None:
         print(f'Carpeta: {self._nombre}')
         for component in self._hijo:
@@ -52,6 +76,7 @@ class CompositeEnlace(Component): #Enlaces
     '''
     def __init__(self, destino) -> None:
         self._destino = destino
+        self._tamanio = 0
       
     def mostrar(self) -> None:
         print(f'Enlace {self._destino}')
@@ -70,7 +95,7 @@ if __name__ == "__main__":
     carp1.add(doc1)
     carp2.add(doc2)
     
-    enlace_doc1 = CompositeEnlace("www.doc1.com")
+    enlace_doc1 = CompositeEnlace("Carpeta1-->Documento1")
     
     carp_principal = CompositeCarpeta("Carpeta Principal")
     carp_principal.add(carp1)
