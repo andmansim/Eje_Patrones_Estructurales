@@ -1,6 +1,6 @@
 from abc import ABC, abstractmethod
 from datetime import datetime
-
+from composite import CompositeCarpeta
 class Subject(ABC):
     """
     Interfaz que declara operaciones comunes para el RealSubject y el Proxy.
@@ -23,16 +23,41 @@ class RealSubject(Subject):
     """
     Clase real que contiene la información que se quiere proteger.
     """
-
+    def __init__(self, composite_carpeta:CompositeCarpeta):
+        self._composite_carpeta = composite_carpeta
+    
     def acceso_documentos(self, nombre_documento):
-        print(f"Accediendo al documento {nombre_documento}.")
+        documento= self._composite_carpeta.buscar(nombre_documento)
+    
+        #Revisar los if pq el buscar devuelve el elemento o none
+        if documento:
+            print(f"Accediendo al documento {nombre_documento}.")
+            print(f"Documento: {documento.nombre}")
+            print(f"Tipo: {documento.tipo}")
+            print(f"Tamaño: {documento.tamanio}")
+            print(f"Sensible: {documento.sensible}")
+            print(f"Fecha de creación: {documento.fecha_creacion}")
+            print(f"Fecha de modificación: {documento.fecha_modificacion}")
+        else:
+            print(f"El documento {nombre_documento} no existe.")
     
     def acceso_enlaces(self, nombre_enlace):
-        print(f"Accediendo al enlace {nombre_enlace}.")
+        enlace = self._composite_carpeta.buscar(nombre_enlace)
+        if enlace:
+            print(f"Accediendo al enlace {nombre_enlace}.")
+            print(f"Enlace: {enlace.nombre}")
+            print(f"Destino: {enlace.destino}")
+        else:
+            print(f"El enlace {nombre_enlace} no existe.")
     
     def acceso_carpetas(self, nombre_carpetas):
-        print(f"Accediendo a la carpeta {nombre_carpetas}.")
-
+        carpeta = self._composite_carpeta.buscar(nombre_carpetas)
+        if carpeta:
+            print(f"Accediendo a la carpeta {nombre_carpetas}.")
+            print(f"Carpeta: {carpeta.nombre}")
+            print(f"Tamaño total: {carpeta.tamanio_total()}")
+        else:
+            print(f"La carpeta {nombre_carpetas} no existe.")
 
 class Proxy(Subject):
     """
