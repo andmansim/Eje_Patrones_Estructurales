@@ -42,6 +42,7 @@ class Proxy(Subject):
 
     def __init__(self, real_subject: RealSubject) -> None:
         self._real_subject = real_subject
+        self._contrasenia = "1234"  # Contraseña de acceso.
         self._entrada_log = []  # Lista de registros de acceso.
 
     def acceso_documentos(self, nombre_documento) -> None:
@@ -60,8 +61,13 @@ class Proxy(Subject):
             self.log_access()
 
     def check_access(self) -> bool:
-        print("Proxy: Comprobando el acceso antes de disparar un request.")
-        return True
+        contrasenia = input("Introduzca la contraseña: ")
+        if contrasenia == self._contrasenia:
+            print("Proxy: Acceso concedido.")
+            return True
+        else:
+            print("Proxy: Acceso denegado.")
+            return False
 
     def log_access(self) -> None:
         # Registramos el acceso en la lista de registros de acceso
