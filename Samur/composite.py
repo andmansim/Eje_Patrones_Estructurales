@@ -5,31 +5,33 @@ from typing import List
 
 class Component(ABC):
     '''
-    Definimos la interfaz de los objetos que formarán la estructura de árbol.
-    En otras palabras, el método para coger el precio de los menús.
+    Declaramos la interfaz de los objetos tanto hoja como compuesto. 
+    Contiene los métodos que se aplican a los objetos hoja y compuesto, en este 
+    caso es mostrar el documento
     '''
     @abstractmethod
-    def coger_precio(self) -> float:
+    def mostrar(self) -> float:
         pass
 
 
-class Leaf(Component):
+class Leaf(Component): #Documentos
     '''
-    Definimos la clase de los objetos hoja.
-    En nuestro caso, los objetos hoja son los distinto precios que componen el total
+    lo más simple del árbol son las hojas, que no tienen hijos. En nuestro código
+    esto son los documentos. 
     '''
-    def __init__(self, precio: float) -> None:
-        self._precio = precio
+    def __init__(self, nombre) -> None:
+        self._nombre = nombre
 
-    def coger_precio(self) -> float:
-        return self._precio
+    def mostrar(self) -> None:
+        print(f"Documento: {self._nombre}")
 
-
-class Composite(Component):
+class CompositeCarpeta(Component): #Carpetas
     '''
-    Nos recore cada hoja y nos calcula el precio total
+    Nos permite acceder a los hijos de los compuestos y definir las operaciones. 
+    Aquí van a ser las carpetas
     '''
-    def __init__(self) -> None:
+    def __init__(self, nombre) -> None:
+        self._nombre = nombre
         self._hijo: List[Component] = []
 
     def add(self, component: Component) -> None:
@@ -38,15 +40,52 @@ class Composite(Component):
     def remove(self, component: Component) -> None:
         self._hijo.remove(component)
 
-    def coger_precio(self) -> float:
-        precio_total = 0.0
-        for hijo in self._hijo:
-            precio_total += hijo.coger_precio()
-        return precio_total
+    def mostrar(self) -> None:
+        print(f'Carpeta {self._nombre}')
+        for component in self._hijo:
+            component.mostrar()
 
+class CompositeEnlace(Component): #Enlaces
+    '''
+    Nos permite acceder a los hijos de los compuestos y definir las operaciones. 
+    Aquí van a ser los enlaces.
+    '''
+    def __init__(self, destino) -> None:
+        self._destino = destino
+      
+    def mostrar(self) -> None:
+        print(f'Enlace {self._destino}')
+       
 
 def client_code(component: Component):
-    return component.coger_precio()
+    print(f"RESULT: {component.mostrar()}", end="")
+    
+if __name__ == "__main__":
+    doc1 = Leaf("Documento 1")
+    doc2 = Leaf("Documento 2")
+    
+    carp1 = CompositeCarpeta("Carpeta 1")
+    carp2 = CompositeCarpeta("Carpeta 2")
+    
+    carp1.add(doc1)
+    carp2.add(doc2)
+    
+    enlace_doc1 = CompositeEnlace("www.doc1.com")
+    
+    carp_principal = CompositeCarpeta("Carpeta Principal")
+    carp_principal.add(carp1)
+    carp_principal.add(carp2)
+    carp_principal.add(enlace_doc1)
+    
+    print("Mostrando el contenido de la carpeta principal:")
+    client_code(carp_principal)
+    
+    print('Agregando un nuevo documento a la carpeta 2')
+    nuevo_doc = Leaf("Documento 3")
+    carp2.add(nuevo_doc)
+    client_code(carp_principal)
+    
+    
 
 
 
