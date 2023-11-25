@@ -41,7 +41,7 @@ class CompositeCarpeta(Component): #Carpetas
         self._hijo.remove(component)
 
     def mostrar(self) -> None:
-        print(f'Carpeta {self._nombre}')
+        print(f'Carpeta: {self._nombre}')
         for component in self._hijo:
             component.mostrar()
 
