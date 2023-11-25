@@ -13,3 +13,16 @@ carpeta2 = composite.CompositeCarpeta('Carpeta 2')
 
 carpeta_principal.add(carpeta1)
 carpeta_principal.add(carpeta2)
+
+carpeta1.add(doc1)
+carpeta1.add(doc3)
+
+carpeta2.add(doc2)
+carpeta2.add(doc4)
+
+realsub = proxy.RealSubject()
+proxi = proxy.Proxy(realsub)
+
+doc_acceder = input('Ingrese el nombre del documento al que desea acceder: ')
+tipo_acceder = input('Ingrese el tipo de documento al que desea acceder: ')
+proxy.client_code(proxi, tipo_acceder, doc_acceder)
