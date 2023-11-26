@@ -113,7 +113,7 @@ class Proxy(Subject):
     def log_access(self, nombre_dato, usuario):
         # Registramos el acceso en la lista de registros de acceso
         tiempo = datetime.now()
-        entrada = f"Acceso a la información del {nombre_dato} a las {tiempo} el usuario {usuario}."
+        entrada = f"Acceso a la información de {nombre_dato} a las {tiempo} el usuario {usuario}."
         self._entrada_log.append(entrada)
         print(entrada)
 

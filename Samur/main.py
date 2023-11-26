@@ -33,12 +33,17 @@ if __name__ == "__main__":
     realsub = proxy.RealSubject(carpeta_principal)
     proxi = proxy.Proxy(realsub)
 
-    #pedimos datos de acceso
-    tipo_acceder = input('Ingrese el tipo del dato (documento, enlace, carpeta) que desea acceder:  (si desea salir escriba salir)')
-    doc_acceder = input('Ingrese el nombre del dato al que desea acceder: ')
-
+    
+    tipo_acceder = input('Ingrese el tipo del dato (documento, enlace, carpeta) que desea acceder:  (si desea salir escaliba "salir") ')
     while tipo_acceder != 'salir':
+        
+        #pedimos datos de acceso
+        doc_acceder = input('Ingrese el nombre del dato al que desea acceder: ')
+        
         #accedemos al dato
         proxy.client_code(proxi, tipo_acceder, doc_acceder)
-        print('Registros de acceso: ')
+        
+        tipo_acceder = input('Ingrese el tipo del dato (documento, enlace, carpeta) que desea acceder:  (si desea salir escaliba "salir") ')
+        
+    print('Registros de acceso de hoy: ')
     print(proxi._entrada_log)
