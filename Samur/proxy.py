@@ -67,37 +67,45 @@ class Proxy(Subject):
 
     def __init__(self, real_subject: RealSubject) -> None:
         self._real_subject = real_subject
+        self._usuario = 'admin'
         self._contrasenia = "1234"  # Contraseña de acceso.
         self._entrada_log = []  # Lista de registros de acceso.
 
     def acceso_documentos(self, nombre_documento) -> None:
-        if self.check_access():
-            self._real_subject.acceso_documentos(nombre_documento)
-            self.log_access()
+        documento = self._real_subject.buscar_contenido(nombre_documento)
+        if documento:
+            es_sensible = documento.sensible
+            if es_sensible:
+                if self.check_access(es_sensible):
+                    self._real_subject.acceso_documentos(nombre_documento)
+                    self.log_access(nombre_documento)
 
     def acceso_carpetas(self, nombre_carpetas) -> None:
-        if self.check_access():
-            self._real_subject.acceso_carpetas(nombre_carpetas)
-            self.log_access()
+        self._real_subject.acceso_carpetas(nombre_carpetas)
+
 
     def acceso_enlaces(self, nombre_enlace) -> None:
-        if self.check_access():
-            self._real_subject.acceso_enlaces(nombre_enlace)
-            self.log_access()
+        self._real_subject.acceso_enlaces(nombre_enlace)
 
-    def check_access(self) -> bool:
-        contrasenia = input("Introduzca la contraseña: ")
-        if contrasenia == self._contrasenia:
+
+    def check_access(self, es_sensible: bool) -> bool:
+        if es_sensible:
+            usuario = input("Introduzca el usuario: ")
+            contrasenia = input("Introduzca la contraseña: ")
+            if contrasenia == self._contrasenia and usuario == self._usuario:
+                print("Proxy: Acceso concedido.")
+                return True
+            else:
+                print("Proxy: Acceso denegado.")
+                return False
+        else: # Si no es sensible, no se necesita contraseña.
             print("Proxy: Acceso concedido.")
             return True
-        else:
-            print("Proxy: Acceso denegado.")
-            return False
 
-    def log_access(self) -> None:
+    def log_access(self, nombre_documento):
         # Registramos el acceso en la lista de registros de acceso
         tiempo = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        entrada = f"Acceso a la información a las {tiempo}"
+        entrada = f"Acceso a la información  del {nombre_documento} a las {tiempo}"
         self._entrada_log.append(entrada)
         print(entrada)
 
