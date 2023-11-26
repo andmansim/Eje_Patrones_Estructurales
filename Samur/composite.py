@@ -29,7 +29,7 @@ class Leaf(Component): #Documentos
 
 
     def mostrar(self) -> None:
-        print(f"Documento: {self.nombre}")
+        print(f"Nombre del documento: {self.nombre}")
         print(f"Tipo: {self.tipo}")
         print(f"Tamaño: {self.tamanio}")
         print(f"Sensible: {self.sensible}")
@@ -71,19 +71,22 @@ class CompositeCarpeta(Component): #Carpetas
         return None
     def mostrar(self) -> None:
         print(f'Carpeta: {self.nombre}')
-        for component in self._hijo:
-            component.mostrar()
+        print(f'Tamaño total: {self.tamanio_total()}')
+        for componente in self._hijo:
+            componente.nombre
 
 class CompositeEnlace(Component): #Enlaces
     '''
     Nos permite acceder a los hijos de los compuestos y definir las operaciones. 
     Aquí van a ser los enlaces.
     '''
-    def __init__(self, destino) -> None:
+    def __init__(self, nombre, destino) -> None:
+        self._nombre = nombre
         self._destino = destino
         self._tamanio = 0
       
     def mostrar(self) -> None:
+        print(f'Enlace {self._nombre}')
         print(f'Enlace {self._destino}')
        
 

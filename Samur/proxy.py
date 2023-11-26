@@ -32,12 +32,7 @@ class RealSubject(Subject):
         #Revisar los if pq el buscar devuelve el elemento o none
         if documento:
             print(f"Accediendo al documento {nombre_documento}.")
-            print(f"Documento: {documento.nombre}")
-            print(f"Tipo: {documento.tipo}")
-            print(f"Tamaño: {documento.tamanio}")
-            print(f"Sensible: {documento.sensible}")
-            print(f"Fecha de creación: {documento.fecha_creacion}")
-            print(f"Fecha de modificación: {documento.fecha_modificacion}")
+            documento.mostrar()
         else:
             print(f"El documento {nombre_documento} no existe.")
     
@@ -45,8 +40,7 @@ class RealSubject(Subject):
         enlace = self._composite_carpeta.buscar(nombre_enlace)
         if enlace:
             print(f"Accediendo al enlace {nombre_enlace}.")
-            print(f"Enlace: {enlace.nombre}")
-            print(f"Destino: {enlace.destino}")
+            enlace.mostrar()
         else:
             print(f"El enlace {nombre_enlace} no existe.")
     
@@ -54,8 +48,7 @@ class RealSubject(Subject):
         carpeta = self._composite_carpeta.buscar(nombre_carpetas)
         if carpeta:
             print(f"Accediendo a la carpeta {nombre_carpetas}.")
-            print(f"Carpeta: {carpeta.nombre}")
-            print(f"Tamaño total: {carpeta.tamanio_total()}")
+            carpeta.mostrar()
         else:
             print(f"La carpeta {nombre_carpetas} no existe.")
 
@@ -72,7 +65,7 @@ class Proxy(Subject):
         self._entrada_log = []  # Lista de registros de acceso.
 
     def acceso_documentos(self, nombre_documento) -> None:
-        documento = self._real_subject.buscar_contenido(nombre_documento)
+        documento = self._real_subject._composite_carpeta.buscar_contenido(nombre_documento)
         if documento:
             es_sensible = documento.sensible
             if es_sensible:
@@ -105,7 +98,7 @@ class Proxy(Subject):
     def log_access(self, nombre_documento):
         # Registramos el acceso en la lista de registros de acceso
         tiempo = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        entrada = f"Acceso a la información  del {nombre_documento} a las {tiempo}"
+        entrada = f"Acceso a la información del {nombre_documento} a las {tiempo} el usuario {self._usuario}.\n"
         self._entrada_log.append(entrada)
         print(entrada)
 
