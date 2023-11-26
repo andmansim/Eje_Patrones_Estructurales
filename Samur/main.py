@@ -20,7 +20,7 @@ carpeta1.add(doc3)
 carpeta2.add(doc2)
 carpeta2.add(doc4)
 
-realsub = proxy.RealSubject()
+realsub = proxy.RealSubject(carpeta_principal)
 proxi = proxy.Proxy(realsub)
 
 doc_acceder = input('Ingrese el nombre del documento al que desea acceder: ')

@@ -27,7 +27,7 @@ class RealSubject(Subject):
         self._composite_carpeta = composite_carpeta
     
     def acceso_documentos(self, nombre_documento):
-        documento= self._composite_carpeta.buscar(nombre_documento)
+        documento= self._composite_carpeta.buscar_contenido(nombre_documento)
     
         #Revisar los if pq el buscar devuelve el elemento o none
         if documento:

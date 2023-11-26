@@ -22,19 +22,19 @@ class Leaf(Component): #Documentos
     def __init__(self, nombre, tipo, tamanio, sensible) -> None:
         self.nombre = nombre
         self.tipo = tipo
-        self.tamnio = tamanio
+        self.tamanio = tamanio
         self.sensible = sensible
         self.fecha_creacion = datetime.datetime.now()
         self.fecha_modificacion = None
 
 
     def mostrar(self) -> None:
-        print(f"Documento: {self._nombre}")
-        print(f"Tipo: {self._tipo}")
-        print(f"Tamaño: {self._tamanio}")
-        print(f"Sensible: {self._sensible}")
-        print(f"Fecha de creación: {self._fecha_creacion}")
-        print(f"Fecha de modificación: {self._fecha_modificacion}")
+        print(f"Documento: {self.nombre}")
+        print(f"Tipo: {self.tipo}")
+        print(f"Tamaño: {self.tamanio}")
+        print(f"Sensible: {self.sensible}")
+        print(f"Fecha de creación: {self.fecha_creacion}")
+        print(f"Fecha de modificación: {self.fecha_modificacion}")
         
 
 class CompositeCarpeta(Component): #Carpetas
@@ -43,7 +43,7 @@ class CompositeCarpeta(Component): #Carpetas
     Aquí van a ser las carpetas
     '''
     def __init__(self, nombre) -> None:
-        self._nombre = nombre
+        self.nombre = nombre
         self._hijo: List[Component] = []
 
     def add(self, component: Component) -> None:
@@ -55,17 +55,22 @@ class CompositeCarpeta(Component): #Carpetas
     def tamanio_total(self):
         #Calculamos el tamaño total de la carpeta
         tamanio = 0
-        for elemento in self.contenido:
+        for elemento in self._hijo:
             tamanio += elemento.tamanio
         return tamanio 
     
     def buscar_contenido(self, nombre):
-        for elemento in self.contenido:
+        for elemento in self._hijo:
             if elemento.nombre == nombre:
                 return elemento
+            elif isinstance(elemento, CompositeCarpeta):
+                # Si el elemento es otra carpeta, realiza la búsqueda dentro de ella recursivamente
+                resultado = elemento.buscar_contenido(nombre)
+                if resultado:
+                    return resultado
         return None
     def mostrar(self) -> None:
-        print(f'Carpeta: {self._nombre}')
+        print(f'Carpeta: {self.nombre}')
         for component in self._hijo:
             component.mostrar()
 
