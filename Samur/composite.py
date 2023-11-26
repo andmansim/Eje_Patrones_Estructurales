@@ -69,7 +69,8 @@ class CompositeCarpeta(Component): #Carpetas
                 if resultado:
                     return resultado
         return None
-    def mostrar(self) -> None:
+    
+    def mostrar(self):
         print(f'Carpeta: {self.nombre}')
         print(f'Tamaño total: {self.tamanio_total()}')
         for componente in self._hijo:
@@ -81,13 +82,12 @@ class CompositeEnlace(Component): #Enlaces
     Aquí van a ser los enlaces.
     '''
     def __init__(self, nombre, destino) -> None:
-        self._nombre = nombre
-        self._destino = destino
-        self._tamanio = 0
+        self.nombre = nombre
+        self.destino = destino
       
-    def mostrar(self) -> None:
-        print(f'Enlace {self._nombre}')
-        print(f'Enlace {self._destino}')
+    def mostrar(self):
+        print(f'Nombre enlace: {self.nombre}')
+        print(f'Enlace: {self.destino}')
        
 
 def client_code(component: Component):
