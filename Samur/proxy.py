@@ -25,10 +25,11 @@ class RealSubject(Subject):
     Clase real que contiene la información que se quiere proteger.
     """
     def __init__(self, composite_carpeta:CompositeCarpeta):
+        #le damos acceso a la carpeta principal
         self._composite_carpeta = composite_carpeta
     
     def acceso_documentos(self, documento):
-        
+        #accede al docmumento, lo muestra y pregunta si se quiere modificar
         print(f"Accediendo al documento {documento.nombre}.")
         documento.mostrar()
         respuesta = input("¿Desea modificar el documento? (s/n): ")
@@ -39,29 +40,23 @@ class RealSubject(Subject):
         else:
             print(f"El documento {documento.nombre} no ha sido modificado.")
             documento.mostrar()
-        '''documento= self._composite_carpeta.buscar_contenido(nombre_documento)
-    
-        #Revisar los if pq el buscar devuelve el elemento o none
-        if documento:
-            print(f"Accediendo al documento {nombre_documento}.")
-            documento.mostrar()
-        else:
-            print(f"El documento {nombre_documento} no existe.")'''
-    
+        
     def acceso_enlaces(self, nombre_enlace):
+        #busca el enlace
         enlace = self._composite_carpeta.buscar_contenido(nombre_enlace)
-        if enlace:
+        if enlace:#existe en nombre del enlace
             print(f"Accediendo al enlace {nombre_enlace}.")
-            enlace.mostrar()
-        else:
+            enlace.mostrar() #muestra la información del enlace
+        else:#no existe el nombre del enlace
             print(f"El enlace {nombre_enlace} no existe.")
     
     def acceso_carpetas(self, nombre_carpetas):
+        #busca la carpeta
         carpeta = self._composite_carpeta.buscar_contenido(nombre_carpetas)
-        if carpeta:
+        if carpeta: #existe el nombre de la carpeta
             print(f"Accediendo a la carpeta {nombre_carpetas}.")
-            carpeta.mostrar()
-        else:
+            carpeta.mostrar() #muestra la información de la carpeta
+        else: #no existe el nombre de la carpeta
             print(f"La carpeta {nombre_carpetas} no existe.")
 
 class Proxy(Subject):
@@ -72,31 +67,38 @@ class Proxy(Subject):
 
     def __init__(self, real_subject: RealSubject) -> None:
         self._real_subject = real_subject
-        self._usuario = 'admin'
-        self._contrasenia = "1234"  # Contraseña de acceso.
+        self._usuario = 'admin' # Usuario de acceso a documentos sensibles
+        self._contrasenia = "1234"  # Contraseña de acceso a documentos sensibles
         self._entrada_log = []  # Lista de registros de acceso.
 
-    def acceso_documentos(self, nombre_documento, usuario) -> None:
+    def acceso_documentos(self, nombre_documento, usuario):
+        #buscamos el documento
         documento = self._real_subject._composite_carpeta.buscar_contenido(nombre_documento)
-        if documento:
+        if documento: #existe el nombre del documento
+            #mira si es sensible
             es_sensible = documento.sensible
-            if self.check_access(es_sensible, usuario):
+            if self.check_access(es_sensible, usuario): #chequea si se puede acceder o no
+                #accede al documento
                 self._real_subject.acceso_documentos(documento)
-                self.log_access(nombre_documento, usuario)
-        else:
+                self.log_access(nombre_documento, usuario) #registra el acceso
+                
+        else: #no existe el nombre del documento
             print(f"El documento {nombre_documento} no existe.")
             
     def acceso_carpetas(self, nombre_carpetas, usuario) -> None:
+        #permite acceder a la carpeta
         self._real_subject.acceso_carpetas(nombre_carpetas)
-        self.log_access(nombre_carpetas, usuario)
+        self.log_access(nombre_carpetas, usuario) #registra el acceso
 
     def acceso_enlaces(self, nombre_enlace, usuario) -> None:
+        #permite acceder al enlace
         self._real_subject.acceso_enlaces(nombre_enlace)
-        self.log_access(nombre_enlace, usuario)
+        self.log_access(nombre_enlace, usuario) #registra el acceso
 
     def check_access(self, es_sensible: bool, usuario) -> bool:
-        
+        #comprueba se es sensible
         if es_sensible:
+            # Si es sensible, pide contraseña
             contrasenia = input("Introduzca la contraseña: ")
             if contrasenia == self._contrasenia and usuario == self._usuario:
                 print("Proxy: Acceso concedido.")
@@ -110,13 +112,14 @@ class Proxy(Subject):
 
     def log_access(self, nombre_dato, usuario):
         # Registramos el acceso en la lista de registros de acceso
-        tiempo = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        tiempo = datetime.now()
         entrada = f"Acceso a la información del {nombre_dato} a las {tiempo} el usuario {usuario}."
         self._entrada_log.append(entrada)
         print(entrada)
 
 
 def client_code(subject: Subject, tipo_acceso, nombre) -> None:
+    #pide el usuario y manda al lugar correspondiente dependiendo del tipo de acceso
     usuario = input("Introduzca el usuario: ")
     if tipo_acceso == "carpeta":
         subject.acceso_carpetas(nombre, usuario)
@@ -125,20 +128,3 @@ def client_code(subject: Subject, tipo_acceso, nombre) -> None:
     elif tipo_acceso == "enlace":
         subject.acceso_enlaces(nombre, usuario)
 
-
-if __name__ == "__main__":
-    print("Client: Ejecutando el código del cliente con un documento real:")
-    documento_real = RealSubject()
-    documento_real.acceso_documentos("Documento Confidencial")
-    client_code(documento_real, tipo_acceso="documento", nombre="Documento Confidencial")
-
-    print("")
-
-    print("Client: Ejecutando el mismo código del cliente con un proxy:")
-    proxy = Proxy(documento_real)
-    client_code(proxy, tipo_acceso="carpeta", nombre="Carpeta Confidencial")
-
-    # Imprimir registros de acceso
-    print("\nRegistros de acceso:")
-    for log in proxy._entrada_log:
-        print(log)

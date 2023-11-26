@@ -29,6 +29,7 @@ class Leaf(Component): #Documentos
 
 
     def mostrar(self) -> None:
+        #muestra la información del documento
         print(f"Nombre del documento: {self.nombre}")
         print(f"Tipo: {self.tipo}")
         print(f"Tamaño: {self.tamanio}")
@@ -60,6 +61,7 @@ class CompositeCarpeta(Component): #Carpetas
         return tamanio 
     
     def buscar_contenido(self, nombre):
+        #buscamos elementos dentro de la carpeta
         for elemento in self._hijo:
             if elemento.nombre == nombre:
                 return elemento
@@ -71,6 +73,7 @@ class CompositeCarpeta(Component): #Carpetas
         return None
     
     def mostrar(self):
+        #muestra la información de la carpeta
         print(f'Carpeta: {self.nombre}')
         print(f'Tamaño total: {self.tamanio_total()}')
         for componente in self._hijo:
@@ -89,37 +92,4 @@ class CompositeEnlace(Component): #Enlaces
         print(f'Nombre enlace: {self.nombre}')
         print(f'Enlace: {self.destino}')
        
-
-def client_code(component: Component):
-    print(f"RESULT: {component.mostrar()}", end="")
-    
-if __name__ == "__main__":
-    doc1 = Leaf("Documento 1")
-    doc2 = Leaf("Documento 2")
-    
-    carp1 = CompositeCarpeta("Carpeta 1")
-    carp2 = CompositeCarpeta("Carpeta 2")
-    
-    carp1.add(doc1)
-    carp2.add(doc2)
-    
-    enlace_doc1 = CompositeEnlace("Carpeta1-->Documento1")
-    
-    carp_principal = CompositeCarpeta("Carpeta Principal")
-    carp_principal.add(carp1)
-    carp_principal.add(carp2)
-    carp_principal.add(enlace_doc1)
-    
-    print("Mostrando el contenido de la carpeta principal:")
-    client_code(carp_principal)
-    
-    print('Agregando un nuevo documento a la carpeta 2')
-    nuevo_doc = Leaf("Documento 3")
-    carp2.add(nuevo_doc)
-    client_code(carp_principal)
-    
-    
-    
-
-
 
