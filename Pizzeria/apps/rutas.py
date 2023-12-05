@@ -24,6 +24,7 @@ precios_dict = {'Sin bebida': 0, 'Sin postre':0, 'agua':1.5, 'sopresa':3, 'vino_
 #Creamos la aplicación web
 app = Flask(__name__)
 
+
 # Genera una clave secreta hexadecimal de 16 bytes, necesaria para las alertas flash
 app.secret_key = secrets.token_hex(16)  
 
